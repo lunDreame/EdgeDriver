@@ -1,0 +1,7 @@
+name: "ST Bridge"
+packageKey: st-bridge
+permissions:
+  lan: {}
+  discovery: {}
+description: "Edge Driver for HA SmartThings Bridge"
+vendorSupportInformation: "https://github.com/lunDreame/EdgeDriver/st-bridge"

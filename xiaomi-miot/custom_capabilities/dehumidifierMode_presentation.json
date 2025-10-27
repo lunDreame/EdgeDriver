@@ -1,0 +1,134 @@
+{
+    "dashboard": {
+        "states": [
+            {
+                "label": "{{dehumidifierMode.value}}",
+                "alternatives": [
+                    {
+                        "key": "smart",
+                        "value": "Smart",
+                        "type": "active"
+                    },
+                    {
+                        "key": "sleep",
+                        "value": "Sleep",
+                        "type": "active"
+                    },
+                    {
+                        "key": "clothesDrying",
+                        "value": "Clothes Drying",
+                        "type": "active"
+                    }
+                ]
+            }
+        ],
+        "basicPlus": []
+    },
+    "detailView": [
+        {
+            "label": "Dehumidifier Mode",
+            "displayType": "list",
+            "list": {
+                "command": {
+                    "name": "setDehumidifierMode",
+                    "alternatives": [
+                        {
+                            "key": "smart",
+                            "value": "Smart",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sleep",
+                            "value": "Sleep",
+                            "type": "active"
+                        },
+                        {
+                            "key": "clothesDrying",
+                            "value": "Clothes Drying",
+                            "type": "active"
+                        }
+                    ],
+                    "argumentType": "string"
+                },
+                "state": {
+                    "value": "dehumidifierMode.value",
+                    "valueType": "string",
+                    "alternatives": [
+                        {
+                            "key": "smart",
+                            "value": "Smart",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sleep",
+                            "value": "Sleep",
+                            "type": "active"
+                        },
+                        {
+                            "key": "clothesDrying",
+                            "value": "Clothes Drying",
+                            "type": "active"
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "automation": {
+        "conditions": [
+            {
+                "label": "Dehumidifier Mode",
+                "displayType": "list",
+                "list": {
+                    "alternatives": [
+                        {
+                            "key": "smart",
+                            "value": "Smart",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sleep",
+                            "value": "Sleep",
+                            "type": "active"
+                        },
+                        {
+                            "key": "clothesDrying",
+                            "value": "Clothes Drying",
+                            "type": "active"
+                        }
+                    ],
+                    "value": "dehumidifierMode.value",
+                    "valueType": "string"
+                }
+            }
+        ],
+        "actions": [
+            {
+                "label": "Dehumidifier Mode Setting",
+                "displayType": "list",
+                "list": {
+                    "command": "setDehumidifierMode",
+                    "alternatives": [
+                        {
+                            "key": "smart",
+                            "value": "Smart",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sleep",
+                            "value": "Sleep",
+                            "type": "active"
+                        },
+                        {
+                            "key": "clothesDrying",
+                            "value": "Clothes Drying",
+                            "type": "active"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "id": "dictionaryangel05655.dehumidifierMode",
+    "version": 1
+}

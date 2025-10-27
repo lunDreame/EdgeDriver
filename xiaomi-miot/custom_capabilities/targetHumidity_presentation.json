@@ -1,0 +1,70 @@
+{
+    "id": "dictionaryangel05655.targetHumidity",
+    "version": 1,
+    "dashboard": {
+        "states": [
+            {
+                "label": "{{targetHumidity.value}} {{targetHumidity.unit}}",
+                "value": "targetHumidity.value",
+                "valueType": "number",
+                "group": "main"
+            }
+        ],
+        "basicPlus": []
+    },
+    "detailView": [
+        {
+            "label": "Target Humidity ({{targetHumidity.unit}})",
+            "displayType": "slider",
+            "slider": {
+                "value": "targetHumidity.value",
+                "valueType": "number",
+                "unit": "targetHumidity.unit",
+                "supportedValues": "targetHumidityRange.value",
+                "command": "setTargetHumidity",
+                "argument": "humidity",
+                "range": [
+                    0,
+                    100
+                ],
+                "step": 1
+            }
+        }
+    ],
+    "automation": {
+        "conditions": [
+            {
+                "label": "Target Humidity ({{targetHumidity.unit}})",
+                "displayType": "numberField",
+                "numberField": {
+                    "value": "targetHumidity.value",
+                    "valueType": "number",
+                    "unit": "targetHumidity.unit",
+                    "supportedValues": "targetHumidityRange.value",
+                    "range": [
+                        0,
+                        100
+                    ],
+                    "step": 1
+                }
+            }
+        ],
+        "actions": [
+            {
+                "label": "Set Target Humidity ({{targetHumidity.unit}})",
+                "displayType": "slider",
+                "slider": {
+                    "command": "setTargetHumidity",
+                    "argument": "humidity",
+                    "unit": "targetHumidity.unit",
+                    "supportedValues": "targetHumidityRange.value",
+                    "range": [
+                        0,
+                        100
+                    ],
+                    "step": 1
+                }
+            }
+        ]
+    }
+}

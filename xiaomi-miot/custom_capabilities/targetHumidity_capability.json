@@ -1,0 +1,99 @@
+{
+    "id": "dictionaryangel05655.targetHumidity",
+    "version": 1,
+    "status": "proposed",
+    "name": "Target Humidity",
+    "attributes": {
+        "targetHumidity": {
+            "schema": {
+                "title": "Humidity",
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "title": "HumidityValue",
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100
+                    },
+                    "unit": {
+                        "type": "string",
+                        "enum": [
+                            "%"
+                        ]
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "value",
+                    "unit"
+                ]
+            },
+            "setter": "setTargetHumidity",
+            "enumCommands": []
+        },
+        "targetHumidityRange": {
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "minimum": {
+                                "title": "HumidityValue",
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 100
+                            },
+                            "maximum": {
+                                "title": "HumidityValue",
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 100
+                            },
+                            "step": {
+                                "title": "HumidityValue",
+                                "type": "integer",
+                                "minimum": 1,
+                                "maximum": 100
+                            }
+                        },
+                        "required": [
+                            "minimum",
+                            "maximum"
+                        ]
+                    },
+                    "unit": {
+                        "type": "string",
+                        "enum": [
+                            "%"
+                        ]
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "value",
+                    "unit"
+                ]
+            },
+            "enumCommands": []
+        }
+    },
+    "commands": {
+        "setTargetHumidity": {
+            "name": "setTargetHumidity",
+            "arguments": [
+                {
+                    "name": "humidity",
+                    "optional": false,
+                    "schema": {
+                        "title": "HumidityValue",
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100
+                    }
+                }
+            ]
+        }
+    }
+}

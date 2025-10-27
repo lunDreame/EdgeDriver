@@ -1,0 +1,40 @@
+name: xiaomi-air-purifier
+components:
+  - id: main
+    capabilities:
+      - id: switch
+        version: 1
+      - id: fanSpeed
+        version: 1
+      - id: fanSpeedPercent
+        version: 1
+      - id: fanOscillationMode
+        version: 1
+      - id: dictionaryangel05655.fanMode
+        version: 1
+      - id: airQualityHealthConcern
+        version: 1
+      - id: filterStatus
+        version: 1
+      - id: relativeHumidityMeasurement
+        version: 1
+      - id: temperatureMeasurement
+        version: 1
+      - id: carbonDioxideMeasurement
+        version: 1
+      - id: formaldehydeMeasurement
+        version: 1
+      - id: tvocMeasurement
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: AirPurifier
+preferences:
+  - title: "Device Token"
+    name: token
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""

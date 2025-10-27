@@ -1,0 +1,16 @@
+name: xiaomi-generic
+components:
+  - id: main
+    capabilities:
+      - id: refresh
+        version: 1
+    categories:
+      - name: Others
+preferences:
+  - title: "Device Token"
+    name: token
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""

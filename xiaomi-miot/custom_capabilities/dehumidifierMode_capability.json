@@ -1,0 +1,62 @@
+{
+    "id": "dictionaryangel05655.dehumidifierMode",
+    "version": 1,
+    "status": "proposed",
+    "name": "Dehumidifier Mode",
+    "attributes": {
+        "dehumidifierMode": {
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "title": "Dehumidifier Mode",
+                        "type": "string",
+                        "enum": [
+                            "smart",
+                            "sleep",
+                            "clothesDrying"
+                        ]
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "value"
+                ]
+            },
+            "setter": "setDehumidifierMode",
+            "enumCommands": [
+                {
+                    "command": "setDehumidifierMode",
+                    "value": "smart"
+                },
+                {
+                    "command": "setDehumidifierMode",
+                    "value": "sleep"
+                },
+                {
+                    "command": "setDehumidifierMode",
+                    "value": "clothesDrying"
+                }
+            ]
+        }
+    },
+    "commands": {
+        "setDehumidifierMode": {
+            "name": "setDehumidifierMode",
+            "arguments": [
+                {
+                    "name": "mode",
+                    "optional": false,
+                    "schema": {
+                        "type": "string",
+                        "enum": [
+                            "smart",
+                            "sleep",
+                            "clothesDrying"
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

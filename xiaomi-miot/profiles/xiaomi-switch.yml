@@ -1,0 +1,28 @@
+name: xiaomi-switch
+components:
+  - id: main
+    capabilities:
+      - id: switch
+        version: 1
+      - id: powerMeter
+        version: 1
+      - id: energyMeter
+        version: 1
+      - id: voltageMeasurement
+        version: 1
+      - id: currentMeasurement
+        version: 1
+      - id: temperatureMeasurement
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Switch
+preferences:
+  - title: "Device Token"
+    name: token
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""

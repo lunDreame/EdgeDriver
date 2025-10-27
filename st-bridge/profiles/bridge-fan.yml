@@ -1,0 +1,14 @@
+name: bridge-fan
+components:
+- id: main
+  capabilities:
+  - id: switch
+    version: 1
+  - id: fanSpeedPercent
+    version: 1
+  - id: fanOscillationMode
+    version: 1
+  - id: refresh
+    version: 1
+  categories:
+  - name: Fan

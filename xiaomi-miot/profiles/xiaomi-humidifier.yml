@@ -1,0 +1,30 @@
+name: xiaomi-humidifier
+components:
+  - id: main
+    capabilities:
+      - id: switch
+        version: 1
+      - id: dictionaryangel05655.humidifierMode
+        version: 1
+      - id: dictionaryangel05655.targetHumidity
+        version: 1
+      - id: fanSpeed
+        version: 1
+      - id: fanSpeedPercent
+        version: 1
+      - id: relativeHumidityMeasurement
+        version: 1
+      - id: temperatureMeasurement
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Humidifier
+preferences:
+  - title: "Device Token"
+    name: token
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""

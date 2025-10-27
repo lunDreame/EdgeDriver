@@ -1,0 +1,315 @@
+{
+    "id": "dictionaryangel05655.fanMode",
+    "version": 1,
+    "dashboard": {
+        "states": [
+            {
+                "label": "{{fanMode.value}}",
+                "alternatives": [
+                    {
+                        "key": "none",
+                        "value": "None",
+                        "type": "inactive"
+                    },
+                    {
+                        "key": "naturalWind",
+                        "value": "Natural Wind",
+                        "type": "active"
+                    },
+                    {
+                        "key": "straightWind",
+                        "value": "Straight Wind",
+                        "type": "active"
+                    },
+                    {
+                        "key": "babyCare",
+                        "value": "Baby Care",
+                        "type": "active"
+                    },
+                    {
+                        "key": "strong",
+                        "value": "Strong",
+                        "type": "active"
+                    },
+                    {
+                        "key": "sleep",
+                        "value": "Sleep",
+                        "type": "active"
+                    },
+                    {
+                        "key": "basic",
+                        "value": "Basic",
+                        "type": "active"
+                    },
+                    {
+                        "key": "smart",
+                        "value": "Smart",
+                        "type": "active"
+                    },
+                    {
+                        "key": "coldAir",
+                        "value": "Cold Air",
+                        "type": "active"
+                    },
+                    {
+                        "key": "tempWind",
+                        "value": "Temp Wind",
+                        "type": "active"
+                    }
+                ]
+            }
+        ],
+        "actions": [],
+        "panelItems": []
+    },
+    "detailView": [
+        {
+            "label": "Fan Mode",
+            "displayType": "list",
+            "list": {
+                "command": {
+                    "name": "setFanMode",
+                    "alternatives": [
+                        {
+                            "key": "none",
+                            "value": "None",
+                            "type": "inactive"
+                        },
+                        {
+                            "key": "naturalWind",
+                            "value": "Natural Wind",
+                            "type": "active"
+                        },
+                        {
+                            "key": "straightWind",
+                            "value": "Straight Wind",
+                            "type": "active"
+                        },
+                        {
+                            "key": "babyCare",
+                            "value": "Baby Care",
+                            "type": "active"
+                        },
+                        {
+                            "key": "strong",
+                            "value": "Strong",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sleep",
+                            "value": "Sleep",
+                            "type": "active"
+                        },
+                        {
+                            "key": "basic",
+                            "value": "Basic",
+                            "type": "active"
+                        },
+                        {
+                            "key": "smart",
+                            "value": "Smart",
+                            "type": "active"
+                        },
+                        {
+                            "key": "coldAir",
+                            "value": "Cold Air",
+                            "type": "active"
+                        },
+                        {
+                            "key": "tempWind",
+                            "value": "Temp Wind",
+                            "type": "active"
+                        }
+                    ]
+                },
+                "argumentType": "string",
+                "supportedValues": "supportedFanModes.value"
+            },
+            "state": {
+                "value": "fanMode.value",
+                "valueType": "string",
+                "alternatives": [
+                    {
+                        "key": "none",
+                        "value": "None",
+                        "type": "inactive"
+                    },
+                    {
+                        "key": "naturalWind",
+                        "value": "Natural Wind",
+                        "type": "active"
+                    },
+                    {
+                        "key": "straightWind",
+                        "value": "Straight Wind",
+                        "type": "active"
+                    },
+                    {
+                        "key": "babyCare",
+                        "value": "Baby Care",
+                        "type": "active"
+                    },
+                    {
+                        "key": "strong",
+                        "value": "Strong",
+                        "type": "active"
+                    },
+                    {
+                        "key": "sleep",
+                        "value": "Sleep",
+                        "type": "active"
+                    },
+                    {
+                        "key": "basic",
+                        "value": "Basic",
+                        "type": "active"
+                    },
+                    {
+                        "key": "smart",
+                        "value": "Smart",
+                        "type": "active"
+                    },
+                    {
+                        "key": "coldAir",
+                        "value": "Cold Air",
+                        "type": "active"
+                    },
+                    {
+                        "key": "tempWind",
+                        "value": "Temp Wind",
+                        "type": "active"
+                    }
+                ]
+            }
+        }
+    ],
+    "automation": {
+        "conditions": [
+            {
+                "label": "Fan Mode",
+                "displayType": "list",
+                "list": {
+                    "alternatives": [
+                        {
+                            "key": "none",
+                            "value": "None",
+                            "type": "inactive"
+                        },
+                        {
+                            "key": "naturalWind",
+                            "value": "Natural Wind",
+                            "type": "active"
+                        },
+                        {
+                            "key": "straightWind",
+                            "value": "Straight Wind",
+                            "type": "active"
+                        },
+                        {
+                            "key": "babyCare",
+                            "value": "Baby Care",
+                            "type": "active"
+                        },
+                        {
+                            "key": "strong",
+                            "value": "Strong",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sleep",
+                            "value": "Sleep",
+                            "type": "active"
+                        },
+                        {
+                            "key": "basic",
+                            "value": "Basic",
+                            "type": "active"
+                        },
+                        {
+                            "key": "smart",
+                            "value": "Smart",
+                            "type": "active"
+                        },
+                        {
+                            "key": "coldAir",
+                            "value": "Cold Air",
+                            "type": "active"
+                        },
+                        {
+                            "key": "tempWind",
+                            "value": "Temp Wind",
+                            "type": "active"
+                        }
+                    ],
+                    "supportedValues": "supportedFanModes.value",
+                    "value": "fanMode.value",
+                    "valueType": "string",
+                    "multiSelectable": false
+                }
+            }
+        ],
+        "actions": [
+            {
+                "label": "Set Fan Mode",
+                "displayType": "list",
+                "list": {
+                    "alternatives": [
+                        {
+                            "key": "none",
+                            "value": "None",
+                            "type": "inactive"
+                        },
+                        {
+                            "key": "naturalWind",
+                            "value": "Natural Wind",
+                            "type": "active"
+                        },
+                        {
+                            "key": "straightWind",
+                            "value": "Straight Wind",
+                            "type": "active"
+                        },
+                        {
+                            "key": "babyCare",
+                            "value": "Baby Care",
+                            "type": "active"
+                        },
+                        {
+                            "key": "strong",
+                            "value": "Strong",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sleep",
+                            "value": "Sleep",
+                            "type": "active"
+                        },
+                        {
+                            "key": "basic",
+                            "value": "Basic",
+                            "type": "active"
+                        },
+                        {
+                            "key": "smart",
+                            "value": "Smart",
+                            "type": "active"
+                        },
+                        {
+                            "key": "coldAir",
+                            "value": "Cold Air",
+                            "type": "active"
+                        },
+                        {
+                            "key": "tempWind",
+                            "value": "Temp Wind",
+                            "type": "active"
+                        }
+                    ],
+                    "supportedValues": "supportedFanModes.value",
+                    "command": "setFanMode",
+                    "argumentType": "string"
+                }
+            }
+        ]
+    }
+}

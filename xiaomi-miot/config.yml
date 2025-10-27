@@ -1,0 +1,7 @@
+name: 'Xiaomi MIoT'
+packageKey: 'xiaomi-miot'
+permissions:
+  lan: {}
+  discovery: {}
+description: "SmartThings Edge Driver for Xiaomi devices supporting the MIoT protocol."
+vendorSupportInformation: "https://github.com/lunDreame/EdgeDriver"

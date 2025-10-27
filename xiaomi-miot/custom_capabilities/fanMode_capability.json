@@ -1,0 +1,197 @@
+{
+    "id": "dictionaryangel05655.fanMode",
+    "version": 1,
+    "status": "proposed",
+    "name": "Fan Mode",
+    "attributes": {
+        "fanMode": {
+            "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "value": {
+                        "title": "FanMode",
+                        "type": "string",
+                        "enum": [
+                            "none",
+                            "naturalWind",
+                            "straightWind",
+                            "babyCare",
+                            "strong",
+                            "sleep",
+                            "basic",
+                            "smart",
+                            "coldAir",
+                            "tempWind"
+                        ]
+                    },
+                    "data": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "supportedFanModes": {
+                                "type": "array",
+                                "items": {
+                                    "title": "FanMode",
+                                    "type": "string",
+                                    "enum": [
+                                        "none",
+                                        "naturalWind",
+                                        "straightWind",
+                                        "babyCare",
+                                        "strong",
+                                        "sleep",
+                                        "basic",
+                                        "smart",
+                                        "coldAir",
+                                        "tempWind"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "required": [
+                    "value"
+                ]
+            },
+            "setter": "setFanMode",
+            "enumCommands": [
+                {
+                    "command": "none",
+                    "value": "none"
+                },
+                {
+                    "command": "naturalWind",
+                    "value": "naturalWind"
+                },
+                {
+                    "command": "straightWind",
+                    "value": "straightWind"
+                },
+                {
+                    "command": "babyCare",
+                    "value": "babyCare"
+                },
+                {
+                    "command": "strong",
+                    "value": "strong"
+                },
+                {
+                    "command": "sleep",
+                    "value": "sleep"
+                },
+                {
+                    "command": "basic",
+                    "value": "basic"
+                },
+                {
+                    "command": "smart",
+                    "value": "smart"
+                },
+                {
+                    "command": "coldAir",
+                    "value": "coldAir"
+                },
+                {
+                    "command": "tempWind",
+                    "value": "tempWind"
+                }
+            ]
+        },
+        "supportedFanModes": {
+            "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "value": {
+                        "type": "array",
+                        "items": {
+                            "title": "FanMode",
+                            "type": "string",
+                            "enum": [
+                                "none",
+                                "naturalWind",
+                                "straightWind",
+                                "babyCare",
+                                "strong",
+                                "sleep",
+                                "basic",
+                                "smart",
+                                "coldAir",
+                                "tempWind"
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "commands": {
+        "none": {
+            "arguments": [],
+            "name": "none"
+        },
+        "naturalWind": {
+            "arguments": [],
+            "name": "naturalWind"
+        },
+        "straightWind": {
+            "arguments": [],
+            "name": "straightWind"
+        },
+        "babyCare": {
+            "arguments": [],
+            "name": "babyCare"
+        },
+        "strong": {
+            "arguments": [],
+            "name": "strong"
+        },
+        "sleep": {
+            "arguments": [],
+            "name": "sleep"
+        },
+        "basic": {
+            "arguments": [],
+            "name": "basic"
+        },
+        "smart": {
+            "arguments": [],
+            "name": "smart"
+        },
+        "coldAir": {
+            "arguments": [],
+            "name": "coldAir"
+        },
+        "tempWind": {
+            "arguments": [],
+            "name": "tempWind"
+        },
+        "setFanMode": {
+            "name": "setFanMode",
+            "arguments": [
+                {
+                    "name": "mode",
+                    "optional": false,
+                    "schema": {
+                        "title": "FanMode",
+                        "type": "string",
+                        "enum": [
+                            "none",
+                            "naturalWind",
+                            "straightWind",
+                            "babyCare",
+                            "strong",
+                            "sleep",
+                            "basic",
+                            "smart",
+                            "coldAir",
+                            "tempWind"
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

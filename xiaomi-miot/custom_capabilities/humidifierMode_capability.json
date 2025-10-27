@@ -1,0 +1,209 @@
+{
+    "id": "dictionaryangel05655.humidifierMode",
+    "version": 1,
+    "status": "proposed",
+    "name": "Humidifier Mode",
+    "attributes": {
+        "humidifierMode": {
+            "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "value": {
+                        "title": "HumidifierMode",
+                        "type": "string",
+                        "enum": [
+                            "constantHumidity",
+                            "strong",
+                            "sleep",
+                            "airdry",
+                            "clean",
+                            "descale",
+                            "none",
+                            "auto",
+                            "silent",
+                            "medium",
+                            "favorite"
+                        ]
+                    },
+                    "data": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "supportedHumidifierModes": {
+                                "type": "array",
+                                "items": {
+                                    "title": "HumidifierMode",
+                                    "type": "string",
+                                    "enum": [
+                                        "constantHumidity",
+                                        "strong",
+                                        "sleep",
+                                        "airdry",
+                                        "clean",
+                                        "descale",
+                                        "none",
+                                        "auto",
+                                        "silent",
+                                        "medium",
+                                        "favorite"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "required": [
+                    "value"
+                ]
+            },
+            "setter": "setHumidifierMode",
+            "enumCommands": [
+                {
+                    "command": "auto",
+                    "value": "auto"
+                },
+                {
+                    "command": "sleep",
+                    "value": "sleep"
+                },
+                {
+                    "command": "strong",
+                    "value": "strong"
+                },
+                {
+                    "command": "airdry",
+                    "value": "airdry"
+                },
+                {
+                    "command": "clean",
+                    "value": "clean"
+                },
+                {
+                    "command": "descale",
+                    "value": "descale"
+                },
+                {
+                    "command": "silent",
+                    "value": "silent"
+                },
+                {
+                    "command": "medium",
+                    "value": "medium"
+                },
+                {
+                    "command": "favorite",
+                    "value": "favorite"
+                },
+                {
+                    "command": "constantHumidity",
+                    "value": "constantHumidity"
+                },
+                {
+                    "command": "none",
+                    "value": "none"
+                }
+            ]
+        },
+        "supportedHumidifierModes": {
+            "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "value": {
+                        "type": "array",
+                        "items": {
+                            "title": "HumidifierMode",
+                            "type": "string",
+                            "enum": [
+                                "constantHumidity",
+                                "strong",
+                                "sleep",
+                                "airdry",
+                                "clean",
+                                "descale",
+                                "none",
+                                "auto",
+                                "silent",
+                                "medium",
+                                "favorite"
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "commands": {
+        "auto": {
+            "arguments": [],
+            "name": "auto"
+        },
+        "sleep": {
+            "arguments": [],
+            "name": "sleep"
+        },
+        "strong": {
+            "arguments": [],
+            "name": "strong"
+        },
+        "airdry": {
+            "arguments": [],
+            "name": "airdry"
+        },
+        "clean": {
+            "arguments": [],
+            "name": "clean"
+        },
+        "descale": {
+            "arguments": [],
+            "name": "descale"
+        },
+        "silent": {
+            "arguments": [],
+            "name": "silent"
+        },
+        "medium": {
+            "arguments": [],
+            "name": "medium"
+        },
+        "favorite": {
+            "arguments": [],
+            "name": "favorite"
+        },
+        "constantHumidity": {
+            "arguments": [],
+            "name": "constantHumidity"
+        },
+        "none": {
+            "arguments": [],
+            "name": "none"
+        },
+        "setHumidifierMode": {
+            "arguments": [
+                {
+                    "name": "mode",
+                    "schema": {
+                        "title": "HumidifierMode",
+                        "type": "string",
+                        "enum": [
+                            "constantHumidity",
+                            "strong",
+                            "sleep",
+                            "airdry",
+                            "clean",
+                            "descale",
+                            "none",
+                            "auto",
+                            "silent",
+                            "medium",
+                            "favorite"
+                        ]
+                    },
+                    "optional": false
+                }
+            ],
+            "name": "setHumidifierMode"
+        }
+    }
+}
