@@ -18,6 +18,12 @@ If you find any issues or missing features, please report them via GitHub issues
 
 ---
 
+## Supported Devices
+
+For a list of supported Xiaomi devices, please refer to [SUPPORTED_DEVICES.md](./SUPPORTED_DEVICES.md).
+
+---
+
 ## Installation Guide
 
 If your Xiaomi device is already added to the **Mi Home app**, the Edge Driver will discover it automatically over the local network using **UDP scanning**.
@@ -36,6 +42,7 @@ https://github.com/ApplY3D/mi-home-toolkit
 #### 1. Device Setup
 - Register your device in the **Mi Home app**.
 - Ensure the device and SmartThings Hub are on the **same local network**.
+- Configure your router to assign a **static IP address** to your Xiaomi device.
 
 #### 2. Discover Devices in SmartThings
 1. Open the SmartThings app
