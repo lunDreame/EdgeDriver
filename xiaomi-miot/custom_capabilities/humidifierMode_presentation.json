@@ -1,70 +1,4 @@
 {
-    "dashboard": {
-        "states": [
-            {
-                "label": "{{humidifierMode.value}}",
-                "alternatives": [
-                    {
-                        "key": "constantHumidity",
-                        "value": "Constant Humidity",
-                        "type": "active"
-                    },
-                    {
-                        "key": "strong",
-                        "value": "Strong",
-                        "type": "active"
-                    },
-                    {
-                        "key": "sleep",
-                        "value": "Sleep",
-                        "type": "active"
-                    },
-                    {
-                        "key": "airdry",
-                        "value": "Air Dry",
-                        "type": "active"
-                    },
-                    {
-                        "key": "clean",
-                        "value": "Clean",
-                        "type": "active"
-                    },
-                    {
-                        "key": "descale",
-                        "value": "Descale",
-                        "type": "active"
-                    },
-                    {
-                        "key": "none",
-                        "value": "None",
-                        "type": "inactive"
-                    },
-                    {
-                        "key": "auto",
-                        "value": "Auto",
-                        "type": "active"
-                    },
-                    {
-                        "key": "silent",
-                        "value": "Silent",
-                        "type": "active"
-                    },
-                    {
-                        "key": "medium",
-                        "value": "Medium",
-                        "type": "active"
-                    },
-                    {
-                        "key": "favorite",
-                        "value": "Favorite",
-                        "type": "active"
-                    }
-                ]
-            }
-        ],
-        "actions": [],
-        "panelItems": []
-    },
     "detailView": [
         {
             "label": "Humidifier Mode",
@@ -128,71 +62,69 @@
                             "value": "Favorite",
                             "type": "active"
                         }
-                    ]
+                    ],
+                    "supportedValues": "supportedHumidifierModes.value"
                 },
-                "argumentType": "string",
-                "supportedValues": "supportedHumidifierModes.value"
-            },
-            "state": {
-                "value": "humidifierMode.value",
-                "valueType": "string",
-                "alternatives": [
-                    {
-                        "key": "constantHumidity",
-                        "value": "Constant Humidity",
-                        "type": "active"
-                    },
-                    {
-                        "key": "strong",
-                        "value": "Strong",
-                        "type": "active"
-                    },
-                    {
-                        "key": "sleep",
-                        "value": "Sleep",
-                        "type": "active"
-                    },
-                    {
-                        "key": "airdry",
-                        "value": "Air Dry",
-                        "type": "active"
-                    },
-                    {
-                        "key": "clean",
-                        "value": "Clean",
-                        "type": "active"
-                    },
-                    {
-                        "key": "descale",
-                        "value": "Descale",
-                        "type": "active"
-                    },
-                    {
-                        "key": "none",
-                        "value": "None",
-                        "type": "inactive"
-                    },
-                    {
-                        "key": "auto",
-                        "value": "Auto",
-                        "type": "active"
-                    },
-                    {
-                        "key": "silent",
-                        "value": "Silent",
-                        "type": "active"
-                    },
-                    {
-                        "key": "medium",
-                        "value": "Medium",
-                        "type": "active"
-                    },
-                    {
-                        "key": "favorite",
-                        "value": "Favorite",
-                        "type": "active"
-                    }
-                ]
+                "state": {
+                    "value": "humidifierMode.value",
+                    "alternatives": [
+                        {
+                            "key": "constantHumidity",
+                            "value": "Constant Humidity",
+                            "type": "active"
+                        },
+                        {
+                            "key": "strong",
+                            "value": "Strong",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sleep",
+                            "value": "Sleep",
+                            "type": "active"
+                        },
+                        {
+                            "key": "airdry",
+                            "value": "Air Dry",
+                            "type": "active"
+                        },
+                        {
+                            "key": "clean",
+                            "value": "Clean",
+                            "type": "active"
+                        },
+                        {
+                            "key": "descale",
+                            "value": "Descale",
+                            "type": "active"
+                        },
+                        {
+                            "key": "none",
+                            "value": "None",
+                            "type": "inactive"
+                        },
+                        {
+                            "key": "auto",
+                            "value": "Auto",
+                            "type": "active"
+                        },
+                        {
+                            "key": "silent",
+                            "value": "Silent",
+                            "type": "active"
+                        },
+                        {
+                            "key": "medium",
+                            "value": "Medium",
+                            "type": "active"
+                        },
+                        {
+                            "key": "favorite",
+                            "value": "Favorite",
+                            "type": "active"
+                        }
+                    ]
+                }
             }
         }
     ],
@@ -261,7 +193,6 @@
                     ],
                     "supportedValues": "supportedHumidifierModes.value",
                     "value": "humidifierMode.value",
-                    "valueType": "string",
                     "multiSelectable": false
                 }
             }
@@ -329,8 +260,7 @@
                         }
                     ],
                     "supportedValues": "supportedHumidifierModes.value",
-                    "command": "setHumidifierMode",
-                    "argumentType": "string"
+                    "command": "setHumidifierMode"
                 }
             }
         ]

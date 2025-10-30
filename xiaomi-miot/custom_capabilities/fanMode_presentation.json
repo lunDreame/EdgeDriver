@@ -1,67 +1,4 @@
 {
-    "id": "dictionaryangel05655.fanMode",
-    "version": 1,
-    "dashboard": {
-        "states": [
-            {
-                "label": "{{fanMode.value}}",
-                "alternatives": [
-                    {
-                        "key": "none",
-                        "value": "None",
-                        "type": "inactive"
-                    },
-                    {
-                        "key": "naturalWind",
-                        "value": "Natural Wind",
-                        "type": "active"
-                    },
-                    {
-                        "key": "straightWind",
-                        "value": "Straight Wind",
-                        "type": "active"
-                    },
-                    {
-                        "key": "babyCare",
-                        "value": "Baby Care",
-                        "type": "active"
-                    },
-                    {
-                        "key": "strong",
-                        "value": "Strong",
-                        "type": "active"
-                    },
-                    {
-                        "key": "sleep",
-                        "value": "Sleep",
-                        "type": "active"
-                    },
-                    {
-                        "key": "basic",
-                        "value": "Basic",
-                        "type": "active"
-                    },
-                    {
-                        "key": "smart",
-                        "value": "Smart",
-                        "type": "active"
-                    },
-                    {
-                        "key": "coldAir",
-                        "value": "Cold Air",
-                        "type": "active"
-                    },
-                    {
-                        "key": "tempWind",
-                        "value": "Temp Wind",
-                        "type": "active"
-                    }
-                ]
-            }
-        ],
-        "actions": [],
-        "panelItems": []
-    },
     "detailView": [
         {
             "label": "Fan Mode",
@@ -73,7 +10,63 @@
                         {
                             "key": "none",
                             "value": "None",
-                            "type": "inactive"
+                            "type": "active"
+                        },
+                        {
+                            "key": "naturalWind",
+                            "value": "Natural Wind",
+                            "type": "active"
+                        },
+                        {
+                            "key": "straightWind",
+                            "value": "Straight Wind",
+                            "type": "active"
+                        },
+                        {
+                            "key": "babyCare",
+                            "value": "Baby Care",
+                            "type": "active"
+                        },
+                        {
+                            "key": "strong",
+                            "value": "Strong",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sleep",
+                            "value": "Sleep",
+                            "type": "active"
+                        },
+                        {
+                            "key": "basic",
+                            "value": "Basic",
+                            "type": "active"
+                        },
+                        {
+                            "key": "smart",
+                            "value": "Smart",
+                            "type": "active"
+                        },
+                        {
+                            "key": "coldAir",
+                            "value": "Cold Air",
+                            "type": "active"
+                        },
+                        {
+                            "key": "tempWind",
+                            "value": "Temp Wind",
+                            "type": "active"
+                        }
+                    ],
+                    "supportedValues": "supportedFanModes.value"
+                },
+                "state": {
+                    "value": "fanMode.value",
+                    "alternatives": [
+                        {
+                            "key": "none",
+                            "value": "None",
+                            "type": "active"
                         },
                         {
                             "key": "naturalWind",
@@ -121,65 +114,7 @@
                             "type": "active"
                         }
                     ]
-                },
-                "argumentType": "string",
-                "supportedValues": "supportedFanModes.value"
-            },
-            "state": {
-                "value": "fanMode.value",
-                "valueType": "string",
-                "alternatives": [
-                    {
-                        "key": "none",
-                        "value": "None",
-                        "type": "inactive"
-                    },
-                    {
-                        "key": "naturalWind",
-                        "value": "Natural Wind",
-                        "type": "active"
-                    },
-                    {
-                        "key": "straightWind",
-                        "value": "Straight Wind",
-                        "type": "active"
-                    },
-                    {
-                        "key": "babyCare",
-                        "value": "Baby Care",
-                        "type": "active"
-                    },
-                    {
-                        "key": "strong",
-                        "value": "Strong",
-                        "type": "active"
-                    },
-                    {
-                        "key": "sleep",
-                        "value": "Sleep",
-                        "type": "active"
-                    },
-                    {
-                        "key": "basic",
-                        "value": "Basic",
-                        "type": "active"
-                    },
-                    {
-                        "key": "smart",
-                        "value": "Smart",
-                        "type": "active"
-                    },
-                    {
-                        "key": "coldAir",
-                        "value": "Cold Air",
-                        "type": "active"
-                    },
-                    {
-                        "key": "tempWind",
-                        "value": "Temp Wind",
-                        "type": "active"
-                    }
-                ]
+                }
             }
         }
     ],
@@ -193,7 +128,7 @@
                         {
                             "key": "none",
                             "value": "None",
-                            "type": "inactive"
+                            "type": "active"
                         },
                         {
                             "key": "naturalWind",
@@ -243,7 +178,6 @@
                     ],
                     "supportedValues": "supportedFanModes.value",
                     "value": "fanMode.value",
-                    "valueType": "string",
                     "multiSelectable": false
                 }
             }
@@ -257,7 +191,7 @@
                         {
                             "key": "none",
                             "value": "None",
-                            "type": "inactive"
+                            "type": "active"
                         },
                         {
                             "key": "naturalWind",
@@ -306,10 +240,11 @@
                         }
                     ],
                     "supportedValues": "supportedFanModes.value",
-                    "command": "setFanMode",
-                    "argumentType": "string"
+                    "command": "setFanMode"
                 }
             }
         ]
-    }
+    },
+    "id": "dictionaryangel05655.fanMode",
+    "version": 1
 }

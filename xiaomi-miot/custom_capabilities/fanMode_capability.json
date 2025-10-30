@@ -3,11 +3,11 @@
     "version": 1,
     "status": "proposed",
     "name": "Fan Mode",
+    "ephemeral": false,
     "attributes": {
         "fanMode": {
             "schema": {
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                     "value": {
                         "title": "FanMode",
@@ -28,6 +28,7 @@
                     "data": {
                         "type": "object",
                         "additionalProperties": false,
+                        "required": [],
                         "properties": {
                             "supportedFanModes": {
                                 "type": "array",
@@ -51,6 +52,7 @@
                         }
                     }
                 },
+                "additionalProperties": false,
                 "required": [
                     "value"
                 ]
@@ -102,7 +104,6 @@
         "supportedFanModes": {
             "schema": {
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                     "value": {
                         "type": "array",
@@ -123,50 +124,63 @@
                             ]
                         }
                     }
-                }
-            }
+                },
+                "additionalProperties": false,
+                "required": []
+            },
+            "enumCommands": []
         }
     },
     "commands": {
         "none": {
             "arguments": [],
-            "name": "none"
+            "name": "none",
+            "sensitive": false
         },
         "naturalWind": {
             "arguments": [],
-            "name": "naturalWind"
+            "name": "naturalWind",
+            "sensitive": false
         },
         "straightWind": {
             "arguments": [],
-            "name": "straightWind"
+            "name": "straightWind",
+            "sensitive": false
         },
         "babyCare": {
             "arguments": [],
-            "name": "babyCare"
+            "name": "babyCare",
+            "sensitive": false
         },
         "strong": {
             "arguments": [],
-            "name": "strong"
+            "name": "strong",
+            "sensitive": false
         },
         "sleep": {
             "arguments": [],
-            "name": "sleep"
+            "name": "sleep",
+            "sensitive": false
         },
         "basic": {
             "arguments": [],
-            "name": "basic"
+            "name": "basic",
+            "sensitive": false
         },
         "smart": {
             "arguments": [],
-            "name": "smart"
+            "name": "smart",
+            "sensitive": false
         },
         "coldAir": {
             "arguments": [],
-            "name": "coldAir"
+            "name": "coldAir",
+            "sensitive": false
         },
         "tempWind": {
             "arguments": [],
-            "name": "tempWind"
+            "name": "tempWind",
+            "sensitive": false
         },
         "setFanMode": {
             "name": "setFanMode",
@@ -191,7 +205,8 @@
                         ]
                     }
                 }
-            ]
+            ],
+            "sensitive": false
         }
     }
 }

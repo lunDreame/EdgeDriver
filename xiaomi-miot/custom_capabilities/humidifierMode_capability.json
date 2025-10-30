@@ -3,11 +3,11 @@
     "version": 1,
     "status": "proposed",
     "name": "Humidifier Mode",
+    "ephemeral": false,
     "attributes": {
         "humidifierMode": {
             "schema": {
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                     "value": {
                         "title": "HumidifierMode",
@@ -29,6 +29,7 @@
                     "data": {
                         "type": "object",
                         "additionalProperties": false,
+                        "required": [],
                         "properties": {
                             "supportedHumidifierModes": {
                                 "type": "array",
@@ -53,6 +54,7 @@
                         }
                     }
                 },
+                "additionalProperties": false,
                 "required": [
                     "value"
                 ]
@@ -108,7 +110,6 @@
         "supportedHumidifierModes": {
             "schema": {
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                     "value": {
                         "type": "array",
@@ -130,59 +131,75 @@
                             ]
                         }
                     }
-                }
-            }
+                },
+                "additionalProperties": false,
+                "required": []
+            },
+            "enumCommands": []
         }
     },
     "commands": {
         "auto": {
             "arguments": [],
-            "name": "auto"
+            "name": "auto",
+            "sensitive": false
         },
         "sleep": {
             "arguments": [],
-            "name": "sleep"
+            "name": "sleep",
+            "sensitive": false
         },
         "strong": {
             "arguments": [],
-            "name": "strong"
+            "name": "strong",
+            "sensitive": false
         },
         "airdry": {
             "arguments": [],
-            "name": "airdry"
+            "name": "airdry",
+            "sensitive": false
         },
         "clean": {
             "arguments": [],
-            "name": "clean"
+            "name": "clean",
+            "sensitive": false
         },
         "descale": {
             "arguments": [],
-            "name": "descale"
+            "name": "descale",
+            "sensitive": false
         },
         "silent": {
             "arguments": [],
-            "name": "silent"
+            "name": "silent",
+            "sensitive": false
         },
         "medium": {
             "arguments": [],
-            "name": "medium"
+            "name": "medium",
+            "sensitive": false
         },
         "favorite": {
             "arguments": [],
-            "name": "favorite"
+            "name": "favorite",
+            "sensitive": false
         },
         "constantHumidity": {
             "arguments": [],
-            "name": "constantHumidity"
+            "name": "constantHumidity",
+            "sensitive": false
         },
         "none": {
             "arguments": [],
-            "name": "none"
+            "name": "none",
+            "sensitive": false
         },
         "setHumidifierMode": {
+            "name": "setHumidifierMode",
             "arguments": [
                 {
                     "name": "mode",
+                    "optional": false,
                     "schema": {
                         "title": "HumidifierMode",
                         "type": "string",
@@ -199,11 +216,10 @@
                             "medium",
                             "favorite"
                         ]
-                    },
-                    "optional": false
+                    }
                 }
             ],
-            "name": "setHumidifierMode"
+            "sensitive": false
         }
     }
 }

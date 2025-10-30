@@ -138,8 +138,6 @@ function M.get_capabilities_for_type(device_type)
       "switch",
       "dictionaryangel05655.humidifierMode",
       "dictionaryangel05655.targetHumidity",
-      "fanSpeed",
-      "fanSpeedPercent",
       "relativeHumidityMeasurement",
       "temperatureMeasurement",
       "refresh",
