@@ -134,7 +134,7 @@
 `xiaomi.aircondition.ma2`
 `xiaomi.aircondition.ma5`
 `xiaomi.aircondition.ma6`
-Next: `zhimi.aircondition.ma2`
+`zhimi.aircondition.ma2`
 `zhimi.aircondition.ma3`
 `zhimi.aircondition.ma4`
 `zhimi.aircondition.v1`
@@ -207,7 +207,7 @@ Next: `zhimi.aircondition.ma2`
 `zhimi.airpurifier.vb2`
 `zhimi.airpurifier.xa1`
 `zhimi.airpurifier.za1`
-Example: `zhimi.airpurifier.oa1`
+`zhimi.airpurifier.oa1`
 `zhimi.airp.mb3a`
 `zhimi.airp.mb4a`
 `zhimi.airp.mb5`
@@ -251,7 +251,7 @@ Example: `zhimi.airpurifier.oa1`
 `roborock.vacuum.a46`
 `roborock.vacuum.s5`
 `roborock.vacuum.s6`
-Remember: `roborock.vacuum.t6`
+`roborock.vacuum.t6`
 `roborock.vacuum.m1s`
 `roborock.vacuum.a01`
 `roborock.vacuum.a08`
