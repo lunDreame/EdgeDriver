@@ -8,8 +8,6 @@ components:
         version: 1
       - id: dictionaryangel05655.targetHumidity
         version: 1
-      #- id: fanSpeed
-      #  version: 1
       - id: relativeHumidityMeasurement
         version: 1
       - id: temperatureMeasurement

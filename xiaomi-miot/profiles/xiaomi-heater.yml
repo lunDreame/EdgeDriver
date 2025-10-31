@@ -13,7 +13,7 @@ components:
       - id: refresh
         version: 1
     categories:
-      - name: Heater
+      - name: Thermostat
 preferences:
   - title: "Device Token"
     name: token
