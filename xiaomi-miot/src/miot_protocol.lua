@@ -78,8 +78,7 @@ end
 function MiotProtocol.new()
   local self = setmetatable({}, MiotProtocol)
   self.message_id = 0
-  self.server_stamp = 0
-  self.server_stamp_time = 0
+  self.delta_ts = 0 -- current time - device time
   return self
 end
 
@@ -110,17 +109,17 @@ function MiotProtocol:encrypt_message(data, token, token_key, token_iv, device_i
   if type(data) == "string" then
     data_str = data
   else
-    data_str = json.encode(data)
+    data_str = json.encode(data) .. "\x00"
   end
 
   local encrypted = aes_encrypt(data_str, token_key, token_iv)
 
   local header = ""
-  header = header .. pack_uint16(MAGIC_NUMBER)  -- magic (2바이트)
-  header = header .. pack_uint16(32 + #encrypted)  -- length (2바이트)
-  header = header .. pack_uint32(0)  -- unknown (4바이트)
-  header = header .. pack_uint32(device_id)  -- device_id (4바이트)
-  header = header .. pack_uint32(stamp)  -- stamp (4바이트)
+  header = header .. pack_uint16(MAGIC_NUMBER)    -- magic (2바이트)
+  header = header .. pack_uint16(32 + #encrypted) -- length (2바이트)
+  header = header .. pack_uint32(0)               -- unknown (4바이트)
+  header = header .. pack_uint32(device_id)       -- device_id (4바이트)
+  header = header .. pack_uint32(stamp)           -- stamp (4바이트)
 
   local checksum = md5(header .. token .. encrypted)
   header = header .. checksum
@@ -145,6 +144,12 @@ function MiotProtocol:decrypt_message(data, token, token_key, token_iv)
   end
 
   local decrypted = aes_decrypt(encrypted, token_key, token_iv)
+
+  if decrypted and #decrypted > 0 then
+    -- Remove trailing null bytes
+    decrypted = decrypted:gsub("\x00+$", "")
+  end
+
   return decrypted
 end
 
@@ -173,11 +178,13 @@ function MiotProtocol:handshake(udp, ip)
   local stamp = unpack_uint32(response, 13)
 
   if stamp > 0 then
-    self.server_stamp = stamp
-    self.server_stamp_time = socket.gettime() * 1000
+    local current_time = math.floor(socket.gettime())
+    self.delta_ts = current_time - stamp
+  else
+    self.delta_ts = 0
   end
 
-  log.info(string.format("Handshake success: Device ID=%d, Stamp=%d", device_id, stamp))
+  log.info(string.format("Handshake success: Device ID=%d, Stamp=%d, delta_ts=%d", device_id, stamp, self.delta_ts))
   return true, device_id
 end
 
@@ -213,10 +220,9 @@ function MiotProtocol:send_command(ip, token_hex, method, params, retry_count)
     }
 
     local current_stamp = 0xFFFFFFFF
-    if self.server_stamp_time > 0 then
-      local current_time = socket.gettime() * 1000
-      local seconds_passed = math.floor((current_time - self.server_stamp_time) / 1000)
-      current_stamp = self.server_stamp + seconds_passed
+    if self.delta_ts > 0 then
+      local current_time = math.floor(socket.gettime())
+      current_stamp = current_time - self.delta_ts
     end
 
     local encrypted_data = self:encrypt_message(command, token, token_key, token_iv, device_id, current_stamp)
@@ -280,7 +286,7 @@ function MiotProtocol:get_device_info(ip, token)
 end
 
 function MiotProtocol:get_property(ip, token, siid, piid)
-  local params = {{siid = siid, piid = piid}}
+  local params = { { siid = siid, piid = piid } }
   local result = self:send_command(ip, token, "get_properties", params)
   if result and result.result and #result.result > 0 then
     return result.result[1].value
@@ -289,7 +295,7 @@ function MiotProtocol:get_property(ip, token, siid, piid)
 end
 
 function MiotProtocol:set_property(ip, token, siid, piid, value)
-  local params = {{siid = siid, piid = piid, value = value}}
+  local params = { { siid = siid, piid = piid, value = value } }
   local result = self:send_command(ip, token, "set_properties", params)
   if result and result.result and #result.result > 0 then
     return result.result[1].code == 0
@@ -299,7 +305,7 @@ end
 
 function MiotProtocol:call_action(ip, token, siid, aiid, action_params)
   action_params = action_params or {}
-  local params = {{siid = siid, aiid = aiid, ["in"] = action_params}}
+  local params = { { siid = siid, aiid = aiid, ["in"] = action_params } }
   local result = self:send_command(ip, token, "action", params)
   if result and result.result and #result.result > 0 then
     return result.result[1]
