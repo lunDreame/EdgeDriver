@@ -4,27 +4,15 @@ components:
     capabilities:
       - id: switch
         version: 1
-      - id: fanSpeed
+      - id: dictionaryangel05655.airpurifierMode
         version: 1
-      - id: fanSpeedPercent
-        version: 1
-      - id: fanOscillationMode
-        version: 1
-      - id: dictionaryangel05655.fanMode
-        version: 1
-      - id: airQualityHealthConcern
-        version: 1
-      - id: filterStatus
+      - id: filterState
         version: 1
       - id: relativeHumidityMeasurement
         version: 1
       - id: temperatureMeasurement
         version: 1
-      - id: carbonDioxideMeasurement
-        version: 1
-      - id: formaldehydeMeasurement
-        version: 1
-      - id: tvocMeasurement
+      - id: fineDustSensor
         version: 1
       - id: refresh
         version: 1

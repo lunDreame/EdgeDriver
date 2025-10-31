@@ -1,0 +1,290 @@
+{
+    "detailView": [
+        {
+            "label": "Air Purifier Mode",
+            "displayType": "list",
+            "list": {
+                "command": {
+                    "name": "setAirPurifierMode",
+                    "alternatives": [
+                        {
+                            "key": "auto",
+                            "value": "Auto",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sleep",
+                            "value": "Sleep",
+                            "type": "active"
+                        },
+                        {
+                            "key": "favorite",
+                            "value": "Favorite",
+                            "type": "active"
+                        },
+                        {
+                            "key": "none",
+                            "value": "None",
+                            "type": "inactive"
+                        },
+                        {
+                            "key": "smart",
+                            "value": "Smart",
+                            "type": "active"
+                        },
+                        {
+                            "key": "purification",
+                            "value": "Purification",
+                            "type": "active"
+                        },
+                        {
+                            "key": "fan",
+                            "value": "Fan",
+                            "type": "active"
+                        },
+                        {
+                            "key": "level1",
+                            "value": "Level 1",
+                            "type": "active"
+                        },
+                        {
+                            "key": "level2",
+                            "value": "Level 2",
+                            "type": "active"
+                        },
+                        {
+                            "key": "level3",
+                            "value": "Level 3",
+                            "type": "active"
+                        },
+                        {
+                            "key": "manual",
+                            "value": "Manual",
+                            "type": "active"
+                        },
+                        {
+                            "key": "strong",
+                            "value": "Strong",
+                            "type": "active"
+                        }
+                    ],
+                    "supportedValues": "supportedAirPurifierModes.value"
+                },
+                "state": {
+                    "value": "airpurifierMode.value",
+                    "alternatives": [
+                        {
+                            "key": "auto",
+                            "value": "Auto",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sleep",
+                            "value": "Sleep",
+                            "type": "active"
+                        },
+                        {
+                            "key": "favorite",
+                            "value": "Favorite",
+                            "type": "active"
+                        },
+                        {
+                            "key": "none",
+                            "value": "None",
+                            "type": "inactive"
+                        },
+                        {
+                            "key": "smart",
+                            "value": "Smart",
+                            "type": "active"
+                        },
+                        {
+                            "key": "purification",
+                            "value": "Purification",
+                            "type": "active"
+                        },
+                        {
+                            "key": "fan",
+                            "value": "Fan",
+                            "type": "active"
+                        },
+                        {
+                            "key": "level1",
+                            "value": "Level 1",
+                            "type": "active"
+                        },
+                        {
+                            "key": "level2",
+                            "value": "Level 2",
+                            "type": "active"
+                        },
+                        {
+                            "key": "level3",
+                            "value": "Level 3",
+                            "type": "active"
+                        },
+                        {
+                            "key": "manual",
+                            "value": "Manual",
+                            "type": "active"
+                        },
+                        {
+                            "key": "strong",
+                            "value": "Strong",
+                            "type": "active"
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "automation": {
+        "conditions": [
+            {
+                "label": "Air Purifier Mode",
+                "displayType": "list",
+                "list": {
+                    "alternatives": [
+                        {
+                            "key": "auto",
+                            "value": "Auto",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sleep",
+                            "value": "Sleep",
+                            "type": "active"
+                        },
+                        {
+                            "key": "favorite",
+                            "value": "Favorite",
+                            "type": "active"
+                        },
+                        {
+                            "key": "none",
+                            "value": "None",
+                            "type": "inactive"
+                        },
+                        {
+                            "key": "smart",
+                            "value": "Smart",
+                            "type": "active"
+                        },
+                        {
+                            "key": "purification",
+                            "value": "Purification",
+                            "type": "active"
+                        },
+                        {
+                            "key": "fan",
+                            "value": "Fan",
+                            "type": "active"
+                        },
+                        {
+                            "key": "level1",
+                            "value": "Level 1",
+                            "type": "active"
+                        },
+                        {
+                            "key": "level2",
+                            "value": "Level 2",
+                            "type": "active"
+                        },
+                        {
+                            "key": "level3",
+                            "value": "Level 3",
+                            "type": "active"
+                        },
+                        {
+                            "key": "manual",
+                            "value": "Manual",
+                            "type": "active"
+                        },
+                        {
+                            "key": "strong",
+                            "value": "Strong",
+                            "type": "active"
+                        }
+                    ],
+                    "supportedValues": "supportedAirPurifierModes.value",
+                    "value": "airpurifierMode.value",
+                    "multiSelectable": false
+                }
+            }
+        ],
+        "actions": [
+            {
+                "label": "Set Air Purifier Mode",
+                "displayType": "list",
+                "list": {
+                    "alternatives": [
+                        {
+                            "key": "auto",
+                            "value": "Auto",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sleep",
+                            "value": "Sleep",
+                            "type": "active"
+                        },
+                        {
+                            "key": "favorite",
+                            "value": "Favorite",
+                            "type": "active"
+                        },
+                        {
+                            "key": "none",
+                            "value": "None",
+                            "type": "inactive"
+                        },
+                        {
+                            "key": "smart",
+                            "value": "Smart",
+                            "type": "active"
+                        },
+                        {
+                            "key": "purification",
+                            "value": "Purification",
+                            "type": "active"
+                        },
+                        {
+                            "key": "fan",
+                            "value": "Fan",
+                            "type": "active"
+                        },
+                        {
+                            "key": "level1",
+                            "value": "Level 1",
+                            "type": "active"
+                        },
+                        {
+                            "key": "level2",
+                            "value": "Level 2",
+                            "type": "active"
+                        },
+                        {
+                            "key": "level3",
+                            "value": "Level 3",
+                            "type": "active"
+                        },
+                        {
+                            "key": "manual",
+                            "value": "Manual",
+                            "type": "active"
+                        },
+                        {
+                            "key": "strong",
+                            "value": "Strong",
+                            "type": "active"
+                        }
+                    ],
+                    "supportedValues": "supportedAirPurifierModes.value",
+                    "command": "setAirPurifierMode"
+                }
+            }
+        ]
+    },
+    "id": "dictionaryangel05655.airpurifierMode",
+    "version": 1
+}

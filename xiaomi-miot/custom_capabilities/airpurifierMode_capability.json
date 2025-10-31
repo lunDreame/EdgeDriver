@@ -1,0 +1,238 @@
+{
+    "id": "dictionaryangel05655.airpurifierMode",
+    "version": 1,
+    "status": "proposed",
+    "name": "Air Purifier Mode",
+    "ephemeral": false,
+    "attributes": {
+        "airpurifierMode": {
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "title": "AirPurifierMode",
+                        "type": "string",
+                        "enum": [
+                            "auto",
+                            "sleep",
+                            "favorite",
+                            "none",
+                            "smart",
+                            "purification",
+                            "fan",
+                            "level1",
+                            "level2",
+                            "level3",
+                            "manual",
+                            "strong"
+                        ]
+                    },
+                    "data": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [],
+                        "properties": {
+                            "supportedAirPurifierModes": {
+                                "type": "array",
+                                "items": {
+                                    "title": "AirPurifierMode",
+                                    "type": "string",
+                                    "enum": [
+                                        "auto",
+                                        "sleep",
+                                        "favorite",
+                                        "none",
+                                        "smart",
+                                        "purification",
+                                        "fan",
+                                        "level1",
+                                        "level2",
+                                        "level3",
+                                        "manual",
+                                        "strong"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "value"
+                ]
+            },
+            "setter": "setAirPurifierMode",
+            "enumCommands": [
+                {
+                    "command": "auto",
+                    "value": "auto"
+                },
+                {
+                    "command": "sleep",
+                    "value": "sleep"
+                },
+                {
+                    "command": "favorite",
+                    "value": "favorite"
+                },
+                {
+                    "command": "none",
+                    "value": "none"
+                },
+                {
+                    "command": "smart",
+                    "value": "smart"
+                },
+                {
+                    "command": "purification",
+                    "value": "purification"
+                },
+                {
+                    "command": "fan",
+                    "value": "fan"
+                },
+                {
+                    "command": "level1",
+                    "value": "level1"
+                },
+                {
+                    "command": "level2",
+                    "value": "level2"
+                },
+                {
+                    "command": "level3",
+                    "value": "level3"
+                },
+                {
+                    "command": "manual",
+                    "value": "manual"
+                },
+                {
+                    "command": "strong",
+                    "value": "strong"
+                }
+            ]
+        },
+        "supportedAirPurifierModes": {
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "type": "array",
+                        "items": {
+                            "title": "AirPurifierMode",
+                            "type": "string",
+                            "enum": [
+                                "auto",
+                                "sleep",
+                                "favorite",
+                                "none",
+                                "smart",
+                                "purification",
+                                "fan",
+                                "level1",
+                                "level2",
+                                "level3",
+                                "manual",
+                                "strong"
+                            ]
+                        }
+                    }
+                },
+                "additionalProperties": false,
+                "required": []
+            },
+            "enumCommands": []
+        }
+    },
+    "commands": {
+        "auto": {
+            "arguments": [],
+            "name": "auto",
+            "sensitive": false
+        },
+        "sleep": {
+            "arguments": [],
+            "name": "sleep",
+            "sensitive": false
+        },
+        "favorite": {
+            "arguments": [],
+            "name": "favorite",
+            "sensitive": false
+        },
+        "none": {
+            "arguments": [],
+            "name": "none",
+            "sensitive": false
+        },
+        "smart": {
+            "arguments": [],
+            "name": "smart",
+            "sensitive": false
+        },
+        "purification": {
+            "arguments": [],
+            "name": "purification",
+            "sensitive": false
+        },
+        "fan": {
+            "arguments": [],
+            "name": "fan",
+            "sensitive": false
+        },
+        "level1": {
+            "arguments": [],
+            "name": "level1",
+            "sensitive": false
+        },
+        "level2": {
+            "arguments": [],
+            "name": "level2",
+            "sensitive": false
+        },
+        "level3": {
+            "arguments": [],
+            "name": "level3",
+            "sensitive": false
+        },
+        "manual": {
+            "arguments": [],
+            "name": "manual",
+            "sensitive": false
+        },
+        "strong": {
+            "arguments": [],
+            "name": "strong",
+            "sensitive": false
+        },
+        "setAirPurifierMode": {
+            "name": "setAirPurifierMode",
+            "arguments": [
+                {
+                    "name": "mode",
+                    "optional": false,
+                    "schema": {
+                        "title": "AirPurifierMode",
+                        "type": "string",
+                        "enum": [
+                            "auto",
+                            "sleep",
+                            "favorite",
+                            "none",
+                            "smart",
+                            "purification",
+                            "fan",
+                            "level1",
+                            "level2",
+                            "level3",
+                            "manual",
+                            "strong"
+                        ]
+                    }
+                }
+            ],
+            "sensitive": false
+        }
+    }
+}
