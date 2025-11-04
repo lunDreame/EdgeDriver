@@ -80,8 +80,6 @@ local function get_and_store_device_info(device)
         info.model, info.fw_ver or "unknown", info.hw_ver or "unknown"))
 
       device:try_update_metadata({
-        label = nil,
-        vendor_provided_label = nil,
         model = info.model
       })
 
@@ -119,19 +117,32 @@ local function device_init(driver, device)
   set_device_data(device, device_data)
 
   if device_data.ip and device_data.token then
+    local needs_spec_setup = false
+
     if not device_data.model then
-      get_and_store_device_info(device)
+      if get_and_store_device_info(device) then
+        needs_spec_setup = true
+      end
     else
       local spec = device:get_field("device_spec")
       if not spec then
         setup_device_spec(device, device_data.model)
+        needs_spec_setup = true
       end
     end
 
     local polling_started = device:get_field("polling_started")
     if not polling_started then
       log.info(string.format("Starting polling for device: %s", device.label))
-      device_updater.start_polling(driver, device, 30)
+
+      if needs_spec_setup then
+        -- Wait for profile update to complete before starting polling
+        device.thread:call_with_delay(2, function()
+          device_updater.start_polling(driver, device, 30)
+        end)
+      else
+        device_updater.start_polling(driver, device, 30)
+      end
     end
   else
     log.warn("Device not fully configured - IP or Token is missing")
@@ -184,7 +195,10 @@ local function device_info_changed(driver, device, event, args)
 
       if get_and_store_device_info(device) then
         device_updater.stop_polling(device)
-        device_updater.start_polling(driver, device, 30)
+        -- Wait for profile update to complete before starting polling
+        device.thread:call_with_delay(2, function()
+          device_updater.start_polling(driver, device, 30)
+        end)
       end
     end
   end
