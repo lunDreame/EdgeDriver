@@ -4834,6 +4834,21 @@ M.DEVICE_SPECS = {
       [2] = "strong"
     }
   },
+  ["leshow.humidifier.jsq3"] = {
+    device_type = "humidifier",
+    properties = {
+      humidity = { siid = 3, piid = 1, min = 0, max = 100, step = 1, unit = "percentage" },
+      power = { siid = 2, piid = 1 },
+      target_humidity = { siid = 2, piid = 5, min = 40, max = 70, step = 1, unit = "percentage" },
+    },
+    mode_map = {
+      [0] = "constantHumidity",
+      [1] = "strong",
+      [2] = "sleep",
+      [3] = "dry",
+      [4] = "wash",
+    }
+  },
 
   -- Dehumidifiers
   ["dmaker.derh.22ht"] = {
@@ -4887,6 +4902,20 @@ M.DEVICE_SPECS = {
   },
   ["nwt.derh.wdh312efw1"] = { device_type = "dehumidifier", properties = { power = { siid = 2, piid = 1 }, mode = { siid = 2, piid = 3 }, humidity = { siid = 3, piid = 1 } } },
   ["nwt.derh.wdh316efw1"] = { device_type = "dehumidifier", properties = { power = { siid = 2, piid = 1 }, mode = { siid = 2, piid = 3 }, humidity = { siid = 3, piid = 1 } } },
+  ["nwt.derh.312en"] = {
+    device_type = "dehumidifier",
+    properties = {
+      power = { siid = 2, piid = 1 },
+      mode = { siid = 2, piid = 3 },
+      humidity = { siid = 3, piid = 1, min = 0, max = 100, step = 1, unit = "percentage" },
+      target_humidity = { siid = 2, piid = 5, min = 30, max = 70, step = 10, unit = "percentage" },
+      temperature = { siid = 3, piid = 7, min = -30, max = 100, step = 1, unit = "celsius" }
+    },
+    mode_map = {
+      [1] = "smart",
+      [2] = "clothesDrying"
+    }
+  },
 
   -- Dooya Curtains Complete
   ["dooya.curtain.c1"] = {

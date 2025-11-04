@@ -313,6 +313,7 @@
 `xiaomi.humidifier.p1200`
 `xiaomi.humidifier.3lite`
 `dmaker.humidifier.p2`
+`leshow.humidifier.jsq3`
 
 ### cover (커튼/빨래 건조대)
 `dooya.curtain.m1`
@@ -365,3 +366,4 @@
 `nwt.derh.wdh318efw1`
 `nwt.derh.wdh312efw1`
 `nwt.derh.wdh316efw1`
+`nwt.derh.312en`

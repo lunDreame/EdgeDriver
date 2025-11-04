@@ -71,7 +71,7 @@
                     "supportedValues": "supportedAirPurifierModes.value"
                 },
                 "state": {
-                    "value": "airpurifierMode.value",
+                    "value": "airPurifierMode.value",
                     "alternatives": [
                         {
                             "key": "auto",
@@ -207,7 +207,7 @@
                         }
                     ],
                     "supportedValues": "supportedAirPurifierModes.value",
-                    "value": "airpurifierMode.value",
+                    "value": "airPurifierMode.value",
                     "multiSelectable": false
                 }
             }

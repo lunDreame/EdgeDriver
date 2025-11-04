@@ -24,6 +24,10 @@ function M.get_profile_for_model(model)
     if device_type == "light" and spec.properties and spec.properties.color then
       return "xiaomi-light-color"
     end
+    -- For humidifiers, check if temperature is supported
+    if device_type == "humidifier" and spec.properties and spec.properties.temperature then
+      return "xiaomi-humidifier-temp"
+    end
   else
     -- Fallback: infer from model name
     if model:find("light") or model:find("lamp") or model:find("ceiling") then
