@@ -113,7 +113,7 @@ function M.get_capabilities_for_type(device_type)
     },
     ["air-purifier"] = {
       "switch",
-      "dictionaryangel05655.airpurifierMode",
+      "dictionaryangel05655.airPurifierMode",
       "filterState",
       "relativeHumidityMeasurement",
       "temperatureMeasurement",

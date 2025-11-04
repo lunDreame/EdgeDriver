@@ -29,7 +29,7 @@ components:
       - id: refresh
         version: 1
     categories:
-      - name: AirConditioner
+      - name: Thermostat
 preferences:
   - title: "Device Token"
     name: token

@@ -4,7 +4,7 @@ components:
     capabilities:
       - id: switch
         version: 1
-      - id: dictionaryangel05655.airpurifierMode
+      - id: dictionaryangel05655.airPurifierMode
         version: 1
       - id: filterState
         version: 1

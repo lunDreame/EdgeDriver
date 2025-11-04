@@ -1,11 +1,11 @@
 {
-    "id": "dictionaryangel05655.airpurifierMode",
+    "id": "dictionaryangel05655.airPurifierMode",
     "version": 1,
     "status": "proposed",
     "name": "Air Purifier Mode",
     "ephemeral": false,
     "attributes": {
-        "airpurifierMode": {
+        "airPurifierMode": {
             "schema": {
                 "type": "object",
                 "properties": {
