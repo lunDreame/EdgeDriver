@@ -287,6 +287,7 @@
 `roidmi.vacuum.v60`
 `roidmi.vacuum.v62`
 `roidmi.vacuum.v66`
+`ijai.vacuum.v1`
 
 ### humidifier (가습기)
 `deerma.humidifier.mjjsq`

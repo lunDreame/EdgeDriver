@@ -4605,6 +4605,39 @@ M.DEVICE_SPECS = {
       [4] = "fullSpeed"
     }
   },
+  ["ijai.vacuum.v1"] = {
+    device_type = "vacuum",
+    properties = {
+      battery = { siid = 3, piid = 1, min = 0, max = 100, step = 1, unit = "percentage" },
+      mode = { siid = 2, piid = 4 },
+      power = { siid = 2, piid = 9 },
+      status = { siid = 2, piid = 1 },
+    },
+    mode_map = {
+      [0] = "sweep",
+      [1] = "sweepAndMop",
+      [2] = "mop"
+    },
+    status_map = {
+      [0] = "sleep",
+      [1] = "idle",
+      [2] = "paused",
+      [3] = "goCharging",
+      [4] = "charging",
+      [5] = "sweeping",
+      [6] = "sweepingAndMopping",
+      [7] = "mopping",
+      [8] = "upgrading"
+    },
+    actions = {
+      start_sweep = { siid = 2, aiid = 1 },
+      stop_sweeping = { siid = 2, aiid = 2 },
+      start_only_sweep = { siid = 2, aiid = 3 },
+      start_sweep_mop = { siid = 2, aiid = 5 },
+      start_mop = { siid = 2, aiid = 6 },
+      start_room_sweep = { siid = 2, aiid = 7, in_params = { room_ids = { piid = 10 } } }
+    }
+  },
 
   -- Deerma Humidifiers Complete
   ["deerma.humidifier.jsq1"] = {

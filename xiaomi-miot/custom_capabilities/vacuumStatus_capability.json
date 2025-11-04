@@ -30,7 +30,8 @@
                             "waterInspecting",
                             "washingMopPause",
                             "dustCollecting",
-                            "remoteClean"
+                            "remoteClean",
+                            "sleep"
                         ]
                     }
                 },
