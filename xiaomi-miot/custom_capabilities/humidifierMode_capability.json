@@ -16,6 +16,8 @@
                             "constantHumidity",
                             "strong",
                             "sleep",
+                            "dry",
+                            "wash",
                             "airdry",
                             "clean",
                             "descale",
@@ -40,6 +42,8 @@
                                         "constantHumidity",
                                         "strong",
                                         "sleep",
+                                        "dry",
+                                        "wash",
                                         "airdry",
                                         "clean",
                                         "descale",
@@ -68,6 +72,14 @@
                 {
                     "command": "sleep",
                     "value": "sleep"
+                },
+                {
+                    "command": "dry",
+                    "value": "dry"
+                },
+                {
+                    "command": "wash",
+                    "value": "wash"
                 },
                 {
                     "command": "strong",
@@ -120,6 +132,8 @@
                                 "constantHumidity",
                                 "strong",
                                 "sleep",
+                                "dry",
+                                "wash",
                                 "airdry",
                                 "clean",
                                 "descale",
@@ -147,6 +161,16 @@
         "sleep": {
             "arguments": [],
             "name": "sleep",
+            "sensitive": false
+        },
+        "dry": {
+            "arguments": [],
+            "name": "dry",
+            "sensitive": false
+        },
+        "wash": {
+            "arguments": [],
+            "name": "wash",
             "sensitive": false
         },
         "strong": {
@@ -207,6 +231,8 @@
                             "constantHumidity",
                             "strong",
                             "sleep",
+                            "dry",
+                            "wash",
                             "airdry",
                             "clean",
                             "descale",

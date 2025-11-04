@@ -23,6 +23,16 @@
                             "type": "active"
                         },
                         {
+                            "key": "dry",
+                            "value": "Dry",
+                            "type": "active"
+                        },
+                        {
+                            "key": "wash",
+                            "value": "Wash",
+                            "type": "active"
+                        },
+                        {
                             "key": "airdry",
                             "value": "Air Dry",
                             "type": "active"
@@ -81,6 +91,16 @@
                         {
                             "key": "sleep",
                             "value": "Sleep",
+                            "type": "active"
+                        },
+                        {
+                            "key": "dry",
+                            "value": "Dry",
+                            "type": "active"
+                        },
+                        {
+                            "key": "wash",
+                            "value": "Wash",
                             "type": "active"
                         },
                         {
@@ -151,6 +171,16 @@
                             "type": "active"
                         },
                         {
+                            "key": "dry",
+                            "value": "Dry",
+                            "type": "active"
+                        },
+                        {
+                            "key": "wash",
+                            "value": "Wash",
+                            "type": "active"
+                        },
+                        {
                             "key": "airdry",
                             "value": "Air Dry",
                             "type": "active"
@@ -216,6 +246,16 @@
                         {
                             "key": "sleep",
                             "value": "Sleep",
+                            "type": "active"
+                        },
+                        {
+                            "key": "dry",
+                            "value": "Dry",
+                            "type": "active"
+                        },
+                        {
+                            "key": "wash",
+                            "value": "Wash",
                             "type": "active"
                         },
                         {

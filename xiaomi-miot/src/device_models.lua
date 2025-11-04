@@ -4834,6 +4834,21 @@ M.DEVICE_SPECS = {
       [2] = "strong"
     }
   },
+  ["leshow.humidifier.jsq3"] = {
+    device_type = "humidifier",
+    properties = {
+      humidity = { siid = 3, piid = 1, min = 0, max = 100, step = 1, unit = "percentage" },
+      power = { siid = 2, piid = 1 },
+      target_humidity = { siid = 2, piid = 5, min = 40, max = 70, step = 1, unit = "percentage" },
+    },
+    mode_map = {
+      [0] = "constantHumidity",
+      [1] = "strong",
+      [2] = "sleep",
+      [3] = "dry",
+      [4] = "wash",
+    }
+  },
 
   -- Dehumidifiers
   ["dmaker.derh.22ht"] = {
