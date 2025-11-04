@@ -4908,7 +4908,7 @@ M.DEVICE_SPECS = {
       power = { siid = 2, piid = 1 },
       mode = { siid = 2, piid = 3 },
       humidity = { siid = 3, piid = 1, min = 0, max = 100, step = 1, unit = "percentage" },
-      target_humidity = { siid = 2, piid = 5, min = 30, max = 70, step = 1, unit = "percentage" },
+      target_humidity = { siid = 2, piid = 5, min = 30, max = 70, step = 10, unit = "percentage" },
       temperature = { siid = 3, piid = 7, min = -30, max = 100, step = 1, unit = "celsius" }
     },
     mode_map = {
