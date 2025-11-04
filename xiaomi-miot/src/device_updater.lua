@@ -105,20 +105,20 @@ function M.update_device_state(device)
     end
   end
 
-  -- Set supported fan modes for air-purifier
+  -- Set supported air purifier modes
   if spec.device_type == "air-purifier" and spec.mode_map then
-    local current_supported = device:get_latest_state("main", capabilities["dictionaryangel05655.fanMode"].ID,
-      capabilities["dictionaryangel05655.fanMode"].supportedFanModes.NAME)
+    local current_supported = device:get_latest_state("main", capabilities["dictionaryangel05655.airPurifierMode"].ID,
+      capabilities["dictionaryangel05655.airPurifierMode"].supportedAirPurifierModes.NAME)
 
     if not current_supported then
-      local fan_mode_capability = capabilities["dictionaryangel05655.fanMode"]
+      local air_purifier_mode_capability = capabilities["dictionaryangel05655.airPurifierMode"]
       local supported_modes = {}
       for mode_value, mode_name in pairs(spec.mode_map) do
         table.insert(supported_modes, mode_name)
       end
 
       if #supported_modes > 0 then
-        device:emit_event(fan_mode_capability.supportedFanModes(supported_modes,
+        device:emit_event(air_purifier_mode_capability.supportedAirPurifierModes(supported_modes,
           { visibility = { displayed = false } }))
         log.debug(string.format("Set supported air purifier modes: %s", table.concat(supported_modes, ", ")))
       end
@@ -435,14 +435,14 @@ function M.process_property_value(device, spec, siid, piid, value)
       end
     elseif device_type == "air-purifier" then
       -- Map air purifier mode to custom capability
-      local fan_mode_capability = capabilities["dictionaryangel05655.fanMode"]
+      local air_purifier_mode_capability = capabilities["dictionaryangel05655.airPurifierMode"]
 
       if spec.mode_map and spec.mode_map[value] then
         local mode_value = spec.mode_map[value]
-        local current_mode = device:get_latest_state("main", fan_mode_capability.ID,
-          fan_mode_capability.fanMode.NAME)
+        local current_mode = device:get_latest_state("main", air_purifier_mode_capability.ID,
+          air_purifier_mode_capability.airPurifierMode.NAME)
         if current_mode ~= mode_value then
-          device:emit_event(fan_mode_capability.fanMode(mode_value))
+          device:emit_event(air_purifier_mode_capability.airPurifierMode(mode_value))
           log.info(string.format("Air purifier mode changed to: %s (%d)", mode_value, value))
         end
       else
@@ -601,24 +601,66 @@ function M.process_property_value(device, spec, siid, piid, value)
       device:emit_event(capabilities.currentMeasurement.current({ value = value, unit = "A" }))
       log.debug(string.format("Electric current: %.2f A", value))
     end
-  elseif prop_name == "pm25" or prop_name == "pm2_5_density" or prop_name == "pm10_density" then
+  elseif prop_name == "aqi_state" then
+    -- Map AQI state to air quality health concern
     local aqi_level = "good"
-    if value > 150 then
-      aqi_level = "hazardous"
-    elseif value > 100 then
-      aqi_level = "veryUnhealthy"
-    elseif value > 50 then
-      aqi_level = "unhealthy"
-    elseif value > 25 then
+    if value == 0 or value == 1 then
+      aqi_level = "good"
+    elseif value == 2 or value == 3 then
       aqi_level = "moderate"
+    elseif value == 4 then
+      aqi_level = "unhealthy"
+    elseif value == 5 then
+      aqi_level = "hazardous"
     end
 
     local current_aqi = device:get_latest_state("main", capabilities.airQualityHealthConcern.ID,
       capabilities.airQualityHealthConcern.airQualityHealthConcern.NAME)
     if current_aqi ~= aqi_level then
       device:emit_event(capabilities.airQualityHealthConcern.airQualityHealthConcern(aqi_level))
+      log.info(string.format("AQI state changed to: %s (value: %d)", aqi_level, value))
+    end
+  elseif prop_name == "pm25" or prop_name == "pm2_5_density" or prop_name == "pm10_density" then
+    -- Emit fine dust sensor measurement
+    local current_dust = device:get_latest_state("main", capabilities.fineDustSensor.ID,
+      capabilities.fineDustSensor.fineDustLevel.NAME)
+    if not current_dust or math.abs(current_dust - value) >= 1 then
+      device:emit_event(capabilities.fineDustSensor.fineDustLevel(value))
+      log.debug(string.format("PM2.5: %d μg/m³", value))
+    end
+
+    -- Also emit air quality health concern (only if aqi_state is not available)
+    local spec = get_device_spec(device)
+    if not spec or not spec.properties or not spec.properties.aqi_state then
+      local aqi_level = "good"
+      if value > 150 then
+        aqi_level = "hazardous"
+      elseif value > 100 then
+        aqi_level = "veryUnhealthy"
+      elseif value > 50 then
+        aqi_level = "unhealthy"
+      elseif value > 25 then
+        aqi_level = "moderate"
+      end
+
+      local current_aqi = device:get_latest_state("main", capabilities.airQualityHealthConcern.ID,
+        capabilities.airQualityHealthConcern.airQualityHealthConcern.NAME)
+      if current_aqi ~= aqi_level then
+        device:emit_event(capabilities.airQualityHealthConcern.airQualityHealthConcern(aqi_level))
+      end
     end
   elseif prop_name == "filter_life_level" or prop_name == "filter_used_time" then
+    -- Emit filterState with percentage for air purifiers
+    if prop_name == "filter_life_level" then
+      local current_filter_state = device:get_latest_state("main", capabilities.filterState.ID,
+        capabilities.filterState.filterLifeRemaining.NAME)
+      if not current_filter_state or math.abs(current_filter_state - value) >= 1 then
+        device:emit_event(capabilities.filterState.filterLifeRemaining(value))
+        log.debug(string.format("Filter life remaining: %d%%", value))
+      end
+    end
+
+    -- Also emit filterStatus
     local filter_status = "normal"
     if prop_name == "filter_life_level" and value < 10 then
       filter_status = "replace"

@@ -701,4 +701,54 @@ function M.handle_fan_mode(driver, device, command)
   end
 end
 
+function M.handle_air_purifier_mode(driver, device, command)
+  log.info(string.format("Set air purifier mode to %s for %s", command.args.mode, device.label))
+
+  local device_data = get_device_data(device)
+  local spec = get_device_spec(device)
+
+  if not spec or not spec.properties or not spec.properties.mode then
+    log.warn("Device does not support mode property")
+    return
+  end
+
+  if not spec.mode_map then
+    log.warn("Device does not have mode_map defined")
+    return
+  end
+
+  local air_purifier_mode_capability = capabilities["dictionaryangel05655.airPurifierMode"]
+
+  -- Find the mode value from mode_map (reverse lookup)
+  local mode_value = nil
+  for value, mode_name in pairs(spec.mode_map) do
+    if mode_name == command.args.mode then
+      mode_value = value
+      break
+    end
+  end
+
+  if not mode_value then
+    log.error(string.format("Invalid air purifier mode: %s", command.args.mode))
+    return
+  end
+
+  local protocol = get_miot_protocol(device)
+  local prop = spec.properties.mode
+
+  local success = protocol:set_property(
+    device_data.ip,
+    device_data.token,
+    prop.siid,
+    prop.piid,
+    mode_value
+  )
+
+  if success then
+    device:emit_event(air_purifier_mode_capability.airPurifierMode(command.args.mode))
+  else
+    log.error("Failed to set air purifier mode")
+  end
+end
+
 return M

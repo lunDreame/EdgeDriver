@@ -501,6 +501,7 @@ M.DEVICE_SPECS = {
   ["zhimi.airpurifier.ma4"] = {
     device_type = "air-purifier",
     properties = {
+      aqi_state = { siid = 13, piid = 8, min = 0, max = 5, step = 1, unit = "none" },
       brightness = { siid = 6, piid = 1, unit = "percentage" },
       fan_level = { siid = 2, piid = 4 },
       filter_life_level = { siid = 4, piid = 3, min = 0, max = 100, step = 1, unit = "percentage" },

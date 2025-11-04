@@ -115,9 +115,11 @@ function M.get_capabilities_for_type(device_type)
       "switch",
       "dictionaryangel05655.airPurifierMode",
       "filterState",
+      "filterStatus",
       "relativeHumidityMeasurement",
       "temperatureMeasurement",
       "fineDustSensor",
+      "airQualityHealthConcern",
       "refresh",
     },
     vacuum = {

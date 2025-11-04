@@ -8,11 +8,15 @@ components:
         version: 1
       - id: filterState
         version: 1
+      - id: filterStatus
+        version: 1
       - id: relativeHumidityMeasurement
         version: 1
       - id: temperatureMeasurement
         version: 1
       - id: fineDustSensor
+        version: 1
+      - id: airQualityHealthConcern
         version: 1
       - id: refresh
         version: 1

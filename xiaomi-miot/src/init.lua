@@ -258,6 +258,10 @@ local xiaomi_driver = Driver("xiaomi-miot", {
       [capabilities["dictionaryangel05655.fanMode"].commands.setFanMode.NAME] = capability_handlers
           .handle_fan_mode,
     },
+    [capabilities["dictionaryangel05655.airPurifierMode"].ID] = {
+      [capabilities["dictionaryangel05655.airPurifierMode"].commands.setAirPurifierMode.NAME] = capability_handlers
+          .handle_air_purifier_mode,
+    },
     [capabilities["dictionaryangel05655.targetHumidity"].ID] = {
       [capabilities["dictionaryangel05655.targetHumidity"].commands.setTargetHumidity.NAME] = dehumidifier_handlers
           .handle_target_humidity,
