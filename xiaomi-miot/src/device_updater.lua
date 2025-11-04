@@ -125,6 +125,45 @@ function M.update_device_state(device)
     end
   end
 
+  -- Set supported vacuum modes
+  if spec.device_type == "vacuum" and spec.mode_map then
+    local current_supported = device:get_latest_state("main", capabilities["dictionaryangel05655.vacuumMode"].ID,
+      capabilities["dictionaryangel05655.vacuumMode"].supportedVacuumModes.NAME)
+
+    if not current_supported then
+      local vacuum_mode_capability = capabilities["dictionaryangel05655.vacuumMode"]
+      local supported_modes = {}
+      for mode_value, mode_name in pairs(spec.mode_map) do
+        table.insert(supported_modes, mode_name)
+      end
+
+      if #supported_modes > 0 then
+        device:emit_event(vacuum_mode_capability.supportedVacuumModes(supported_modes,
+          { visibility = { displayed = false } }))
+        log.debug(string.format("Set supported vacuum modes: %s", table.concat(supported_modes, ", ")))
+      end
+    end
+  end
+
+  -- Set supported charging states for vacuum
+  if spec.device_type == "vacuum" and spec.charging_state_map then
+    local current_supported = device:get_latest_state("main", capabilities.chargingState.ID,
+      capabilities.chargingState.supportedChargingStates.NAME)
+
+    if not current_supported then
+      local supported_states = {}
+      for state_value, state_name in pairs(spec.charging_state_map) do
+        table.insert(supported_states, state_name)
+      end
+
+      if #supported_states > 0 then
+        device:emit_event(capabilities.chargingState.supportedChargingStates(supported_states,
+          { visibility = { displayed = false } }))
+        log.debug(string.format("Set supported charging states: %s", table.concat(supported_states, ", ")))
+      end
+    end
+  end
+
   -- Set supported thermostat modes for climate
   if spec.device_type == "climate" then
     local current_supported = device:get_latest_state("main", capabilities.thermostatMode.ID,
@@ -448,6 +487,21 @@ function M.process_property_value(device, spec, siid, piid, value)
       else
         log.debug(string.format("Air purifier mode value: %d (no mapping available)", value))
       end
+    elseif device_type == "vacuum" then
+      -- Map vacuum mode to custom capability
+      local vacuum_mode_capability = capabilities["dictionaryangel05655.vacuumMode"]
+
+      if spec.mode_map and spec.mode_map[value] then
+        local mode_value = spec.mode_map[value]
+        local current_mode = device:get_latest_state("main", vacuum_mode_capability.ID,
+          vacuum_mode_capability.vacuumMode.NAME)
+        if current_mode ~= mode_value then
+          device:emit_event(vacuum_mode_capability.vacuumMode(mode_value))
+          log.info(string.format("Vacuum mode changed to: %s (%d)", mode_value, value))
+        end
+      else
+        log.debug(string.format("Vacuum mode value: %d (no mapping available)", value))
+      end
     elseif device_type == "heater" then
       -- Store heater mode
       if spec.mode_map and spec.mode_map[value] then
@@ -520,7 +574,23 @@ function M.process_property_value(device, spec, siid, piid, value)
   elseif prop_name == "uv" then
     log.debug(string.format("UV: %s", tostring(value)))
   elseif prop_name == "charging_state" then
-    log.debug(string.format("Charging state: %s", tostring(value)))
+    -- Check if device has custom charging_state_map
+    if spec.charging_state_map then
+      local charging_state_name = spec.charging_state_map[value]
+
+      if charging_state_name then
+        local current_charging_state = device:get_latest_state("main", capabilities.chargingState.ID,
+          capabilities.chargingState.chargingState.NAME)
+        if current_charging_state ~= charging_state_name then
+          device:emit_event(capabilities.chargingState.chargingState(charging_state_name))
+          log.info(string.format("Charging state changed to: %s (%d)", charging_state_name, value))
+        end
+      else
+        log.debug(string.format("Unknown charging state value: %d", value))
+      end
+    else
+      log.debug(string.format("Charging state: %s", tostring(value)))
+    end
   elseif prop_name == "hcho" then
     -- Formaldehyde measurement in mg/m³
     local current_hcho = device:get_latest_state("main", capabilities.formaldehydeMeasurement.ID,
@@ -712,19 +782,28 @@ function M.process_property_value(device, spec, siid, piid, value)
     end
   elseif prop_name == "status" then
     if device_type == "vacuum" then
-      -- Vacuum status mapping
-      local status_map = {
-        [1] = "idle",
-        [2] = "cleaning",
-        [3] = "charging",
-        [5] = "returning",
-        [6] = "docked",
-      }
-      local status = status_map[value] or "idle"
+      -- Check if device has custom status_map
+      if spec.status_map then
+        local vacuum_status_capability = capabilities["dictionaryangel05655.vacuumStatus"]
+        local status_name = spec.status_map[value]
 
+        if status_name then
+          local current_status = device:get_latest_state("main", vacuum_status_capability.ID,
+            vacuum_status_capability.vacuumStatus.NAME)
+          if current_status ~= status_name then
+            device:emit_event(vacuum_status_capability.vacuumStatus(status_name))
+            log.info(string.format("Vacuum status changed to: %s (%d)", status_name, value))
+          end
+        else
+          log.debug(string.format("Unknown vacuum status value: %d", value))
+        end
+      end
+
+      -- Basic switch state mapping for all vacuum devices
       local current_state = device:get_latest_state("main", capabilities.switch.ID, capabilities.switch.switch.NAME)
       local new_state
-      if value == 2 or value == 5 then
+      -- Active states: sweeping (1), mopping (7), sweepingAndMopping (12), goCharging (5), etc.
+      if value == 1 or value == 5 or value == 7 or value == 12 or value == 22 or value == 23 then
         new_state = "on"
       else
         new_state = "off"

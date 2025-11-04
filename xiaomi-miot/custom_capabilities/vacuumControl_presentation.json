@@ -1,0 +1,59 @@
+{
+    "detailView": [
+        {
+            "label": "Sweep",
+            "displayType": "pushButton",
+            "pushButton": {
+                "command": "startSweep"
+            }
+        },
+        {
+            "label": "Stop Sweeping",
+            "displayType": "pushButton",
+            "pushButton": {
+                "command": "stopSweeping"
+            }
+        },
+        {
+            "label": "Dust Collection",
+            "displayType": "pushButton",
+            "pushButton": {
+                "command": "startDustArrest"
+            }
+        },
+        {
+            "label": "Mop Wash",
+            "displayType": "pushButton",
+            "pushButton": {
+                "command": "startMopWash"
+            }
+        },
+        {
+            "label": "Start Dry",
+            "displayType": "pushButton",
+            "pushButton": {
+                "command": "startDry"
+            }
+        },
+        {
+            "label": "Stop Dry",
+            "displayType": "pushButton",
+            "pushButton": {
+                "command": "stopDry"
+            }
+        },
+        {
+            "label": "Eject",
+            "displayType": "pushButton",
+            "pushButton": {
+                "command": "startEject"
+            }
+        }
+    ],
+    "automation": {
+        "conditions": [],
+        "actions": []
+    },
+    "id": "dictionaryangel05655.vacuumControl",
+    "version": 1
+}

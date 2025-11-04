@@ -1,0 +1,250 @@
+{
+    "detailView": [
+        {
+            "label": "Vacuum Mode",
+            "displayType": "list",
+            "list": {
+                "command": {
+                    "name": "setVacuumMode",
+                    "alternatives": [
+                        {
+                            "key": "silent",
+                            "value": "Silent",
+                            "type": "active"
+                        },
+                        {
+                            "key": "basic",
+                            "value": "Basic",
+                            "type": "active"
+                        },
+                        {
+                            "key": "medium",
+                            "value": "Medium",
+                            "type": "active"
+                        },
+                        {
+                            "key": "strong",
+                            "value": "Strong",
+                            "type": "active"
+                        },
+                        {
+                            "key": "fullSpeed",
+                            "value": "Full Speed",
+                            "type": "active"
+                        },
+                        {
+                            "key": "custom",
+                            "value": "Custom",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sweep",
+                            "value": "Sweep",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sweepAndMop",
+                            "value": "Sweep & Mop",
+                            "type": "active"
+                        },
+                        {
+                            "key": "mop",
+                            "value": "Mop",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sweepThenMop",
+                            "value": "Sweep Then Mop",
+                            "type": "active"
+                        }
+                    ],
+                    "supportedValues": "supportedVacuumModes.value"
+                },
+                "state": {
+                    "value": "vacuumMode.value",
+                    "alternatives": [
+                        {
+                            "key": "silent",
+                            "value": "Silent",
+                            "type": "active"
+                        },
+                        {
+                            "key": "basic",
+                            "value": "Basic",
+                            "type": "active"
+                        },
+                        {
+                            "key": "medium",
+                            "value": "Medium",
+                            "type": "active"
+                        },
+                        {
+                            "key": "strong",
+                            "value": "Strong",
+                            "type": "active"
+                        },
+                        {
+                            "key": "fullSpeed",
+                            "value": "Full Speed",
+                            "type": "active"
+                        },
+                        {
+                            "key": "custom",
+                            "value": "Custom",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sweep",
+                            "value": "Sweep",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sweepAndMop",
+                            "value": "Sweep & Mop",
+                            "type": "active"
+                        },
+                        {
+                            "key": "mop",
+                            "value": "Mop",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sweepThenMop",
+                            "value": "Sweep Then Mop",
+                            "type": "active"
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "automation": {
+        "conditions": [
+            {
+                "label": "Vacuum Mode",
+                "displayType": "list",
+                "list": {
+                    "alternatives": [
+                        {
+                            "key": "silent",
+                            "value": "Silent",
+                            "type": "active"
+                        },
+                        {
+                            "key": "basic",
+                            "value": "Basic",
+                            "type": "active"
+                        },
+                        {
+                            "key": "medium",
+                            "value": "Medium",
+                            "type": "active"
+                        },
+                        {
+                            "key": "strong",
+                            "value": "Strong",
+                            "type": "active"
+                        },
+                        {
+                            "key": "fullSpeed",
+                            "value": "Full Speed",
+                            "type": "active"
+                        },
+                        {
+                            "key": "custom",
+                            "value": "Custom",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sweep",
+                            "value": "Sweep",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sweepAndMop",
+                            "value": "Sweep & Mop",
+                            "type": "active"
+                        },
+                        {
+                            "key": "mop",
+                            "value": "Mop",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sweepThenMop",
+                            "value": "Sweep Then Mop",
+                            "type": "active"
+                        }
+                    ],
+                    "supportedValues": "supportedVacuumModes.value",
+                    "value": "vacuumMode.value",
+                    "multiSelectable": false
+                }
+            }
+        ],
+        "actions": [
+            {
+                "label": "Set Vacuum Mode",
+                "displayType": "list",
+                "list": {
+                    "alternatives": [
+                        {
+                            "key": "silent",
+                            "value": "Silent",
+                            "type": "active"
+                        },
+                        {
+                            "key": "basic",
+                            "value": "Basic",
+                            "type": "active"
+                        },
+                        {
+                            "key": "medium",
+                            "value": "Medium",
+                            "type": "active"
+                        },
+                        {
+                            "key": "strong",
+                            "value": "Strong",
+                            "type": "active"
+                        },
+                        {
+                            "key": "fullSpeed",
+                            "value": "Full Speed",
+                            "type": "active"
+                        },
+                        {
+                            "key": "custom",
+                            "value": "Custom",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sweep",
+                            "value": "Sweep",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sweepAndMop",
+                            "value": "Sweep & Mop",
+                            "type": "active"
+                        },
+                        {
+                            "key": "mop",
+                            "value": "Mop",
+                            "type": "active"
+                        },
+                        {
+                            "key": "sweepThenMop",
+                            "value": "Sweep Then Mop",
+                            "type": "active"
+                        }
+                    ],
+                    "supportedValues": "supportedVacuumModes.value",
+                    "command": "setVacuumMode"
+                }
+            }
+        ]
+    },
+    "id": "dictionaryangel05655.vacuumMode",
+    "version": 1
+}

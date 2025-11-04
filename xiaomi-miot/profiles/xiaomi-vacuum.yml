@@ -6,7 +6,17 @@ components:
         version: 1
       - id: battery
         version: 1
+      - id: chargingState
+        version: 1
+      - id: filterState
+        version: 1
       - id: filterStatus
+        version: 1
+      - id: dictionaryangel05655.vacuumMode
+        version: 1
+      - id: dictionaryangel05655.vacuumStatus
+        version: 1
+      - id: dictionaryangel05655.vacuumControl
         version: 1
       - id: refresh
         version: 1

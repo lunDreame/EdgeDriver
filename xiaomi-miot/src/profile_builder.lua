@@ -125,7 +125,12 @@ function M.get_capabilities_for_type(device_type)
     vacuum = {
       "switch",
       "battery",
+      "chargingState",
+      "filterState",
       "filterStatus",
+      "dictionaryangel05655.vacuumMode",
+      "dictionaryangel05655.vacuumStatus",
+      "dictionaryangel05655.vacuumControl",
       "refresh",
     },
     cover = {

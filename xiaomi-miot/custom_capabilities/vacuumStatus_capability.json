@@ -1,0 +1,45 @@
+{
+    "id": "dictionaryangel05655.vacuumStatus",
+    "version": 1,
+    "status": "proposed",
+    "name": "Vacuum Status",
+    "ephemeral": false,
+    "attributes": {
+        "vacuumStatus": {
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "title": "VacuumStatus",
+                        "type": "string",
+                        "enum": [
+                            "sweeping",
+                            "idle",
+                            "paused",
+                            "error",
+                            "goCharging",
+                            "charging",
+                            "mopping",
+                            "drying",
+                            "washing",
+                            "goWashing",
+                            "building",
+                            "sweepingAndMopping",
+                            "chargingCompleted",
+                            "upgrading",
+                            "waterInspecting",
+                            "washingMopPause",
+                            "dustCollecting",
+                            "remoteClean"
+                        ]
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "value"
+                ]
+            }
+        }
+    },
+    "commands": {}
+}

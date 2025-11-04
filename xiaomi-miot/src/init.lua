@@ -276,6 +276,28 @@ local xiaomi_driver = Driver("xiaomi-miot", {
       [capabilities["dictionaryangel05655.airPurifierMode"].commands.setAirPurifierMode.NAME] = capability_handlers
           .handle_air_purifier_mode,
     },
+    [capabilities["dictionaryangel05655.vacuumMode"].ID] = {
+      [capabilities["dictionaryangel05655.vacuumMode"].commands.setVacuumMode.NAME] = vacuum_handlers
+          .handle_vacuum_mode,
+    },
+    [capabilities["dictionaryangel05655.vacuumControl"].ID] = {
+      [capabilities["dictionaryangel05655.vacuumControl"].commands.startSweep.NAME] = vacuum_handlers
+          .handle_start_sweep,
+      [capabilities["dictionaryangel05655.vacuumControl"].commands.stopSweeping.NAME] = vacuum_handlers
+          .handle_stop_sweeping,
+      [capabilities["dictionaryangel05655.vacuumControl"].commands.startRoomSweep.NAME] = vacuum_handlers
+          .handle_start_room_sweep,
+      [capabilities["dictionaryangel05655.vacuumControl"].commands.startDustArrest.NAME] = vacuum_handlers
+          .handle_start_dust_arrest,
+      [capabilities["dictionaryangel05655.vacuumControl"].commands.startMopWash.NAME] = vacuum_handlers
+          .handle_start_mop_wash,
+      [capabilities["dictionaryangel05655.vacuumControl"].commands.startDry.NAME] = vacuum_handlers
+          .handle_start_dry,
+      [capabilities["dictionaryangel05655.vacuumControl"].commands.stopDry.NAME] = vacuum_handlers
+          .handle_stop_dry,
+      [capabilities["dictionaryangel05655.vacuumControl"].commands.startEject.NAME] = vacuum_handlers
+          .handle_start_eject,
+    },
     [capabilities["dictionaryangel05655.targetHumidity"].ID] = {
       [capabilities["dictionaryangel05655.targetHumidity"].commands.setTargetHumidity.NAME] = dehumidifier_handlers
           .handle_target_humidity,

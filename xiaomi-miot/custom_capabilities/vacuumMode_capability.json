@@ -1,0 +1,212 @@
+{
+    "id": "dictionaryangel05655.vacuumMode",
+    "version": 1,
+    "status": "proposed",
+    "name": "Vacuum Mode",
+    "ephemeral": false,
+    "attributes": {
+        "vacuumMode": {
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "title": "VacuumMode",
+                        "type": "string",
+                        "enum": [
+                            "silent",
+                            "basic",
+                            "medium",
+                            "strong",
+                            "fullSpeed",
+                            "custom",
+                            "sweep",
+                            "sweepAndMop",
+                            "mop",
+                            "sweepThenMop"
+                        ]
+                    },
+                    "data": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [],
+                        "properties": {
+                            "supportedVacuumModes": {
+                                "type": "array",
+                                "items": {
+                                    "title": "VacuumMode",
+                                    "type": "string",
+                                    "enum": [
+                                        "silent",
+                                        "basic",
+                                        "medium",
+                                        "strong",
+                                        "fullSpeed",
+                                        "custom",
+                                        "sweep",
+                                        "sweepAndMop",
+                                        "mop",
+                                        "sweepThenMop"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "value"
+                ]
+            },
+            "setter": "setVacuumMode",
+            "enumCommands": [
+                {
+                    "command": "silent",
+                    "value": "silent"
+                },
+                {
+                    "command": "basic",
+                    "value": "basic"
+                },
+                {
+                    "command": "medium",
+                    "value": "medium"
+                },
+                {
+                    "command": "strong",
+                    "value": "strong"
+                },
+                {
+                    "command": "fullSpeed",
+                    "value": "fullSpeed"
+                },
+                {
+                    "command": "custom",
+                    "value": "custom"
+                },
+                {
+                    "command": "sweep",
+                    "value": "sweep"
+                },
+                {
+                    "command": "sweepAndMop",
+                    "value": "sweepAndMop"
+                },
+                {
+                    "command": "mop",
+                    "value": "mop"
+                },
+                {
+                    "command": "sweepThenMop",
+                    "value": "sweepThenMop"
+                }
+            ]
+        },
+        "supportedVacuumModes": {
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "type": "array",
+                        "items": {
+                            "title": "VacuumMode",
+                            "type": "string",
+                            "enum": [
+                                "silent",
+                                "basic",
+                                "medium",
+                                "strong",
+                                "fullSpeed",
+                                "custom",
+                                "sweep",
+                                "sweepAndMop",
+                                "mop",
+                                "sweepThenMop"
+                            ]
+                        }
+                    }
+                },
+                "additionalProperties": false,
+                "required": []
+            },
+            "enumCommands": []
+        }
+    },
+    "commands": {
+        "silent": {
+            "arguments": [],
+            "name": "silent",
+            "sensitive": false
+        },
+        "basic": {
+            "arguments": [],
+            "name": "basic",
+            "sensitive": false
+        },
+        "medium": {
+            "arguments": [],
+            "name": "medium",
+            "sensitive": false
+        },
+        "strong": {
+            "arguments": [],
+            "name": "strong",
+            "sensitive": false
+        },
+        "fullSpeed": {
+            "arguments": [],
+            "name": "fullSpeed",
+            "sensitive": false
+        },
+        "custom": {
+            "arguments": [],
+            "name": "custom",
+            "sensitive": false
+        },
+        "sweep": {
+            "arguments": [],
+            "name": "sweep",
+            "sensitive": false
+        },
+        "sweepAndMop": {
+            "arguments": [],
+            "name": "sweepAndMop",
+            "sensitive": false
+        },
+        "mop": {
+            "arguments": [],
+            "name": "mop",
+            "sensitive": false
+        },
+        "sweepThenMop": {
+            "arguments": [],
+            "name": "sweepThenMop",
+            "sensitive": false
+        },
+        "setVacuumMode": {
+            "name": "setVacuumMode",
+            "arguments": [
+                {
+                    "name": "mode",
+                    "optional": false,
+                    "schema": {
+                        "title": "VacuumMode",
+                        "type": "string",
+                        "enum": [
+                            "silent",
+                            "basic",
+                            "medium",
+                            "strong",
+                            "fullSpeed",
+                            "custom",
+                            "sweep",
+                            "sweepAndMop",
+                            "mop",
+                            "sweepThenMop"
+                        ]
+                    }
+                }
+            ],
+            "sensitive": false
+        }
+    }
+}

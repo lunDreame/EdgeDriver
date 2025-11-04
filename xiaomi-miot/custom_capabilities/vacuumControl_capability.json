@@ -1,0 +1,58 @@
+{
+    "id": "dictionaryangel05655.vacuumControl",
+    "version": 1,
+    "status": "proposed",
+    "name": "Vacuum Control",
+    "ephemeral": false,
+    "attributes": {},
+    "commands": {
+        "startSweep": {
+            "arguments": [],
+            "name": "startSweep",
+            "sensitive": false
+        },
+        "stopSweeping": {
+            "arguments": [],
+            "name": "stopSweeping",
+            "sensitive": false
+        },
+        "startRoomSweep": {
+            "arguments": [
+                {
+                    "name": "roomIds",
+                    "optional": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "name": "startRoomSweep",
+            "sensitive": false
+        },
+        "startDustArrest": {
+            "arguments": [],
+            "name": "startDustArrest",
+            "sensitive": false
+        },
+        "startMopWash": {
+            "arguments": [],
+            "name": "startMopWash",
+            "sensitive": false
+        },
+        "startDry": {
+            "arguments": [],
+            "name": "startDry",
+            "sensitive": false
+        },
+        "stopDry": {
+            "arguments": [],
+            "name": "stopDry",
+            "sensitive": false
+        },
+        "startEject": {
+            "arguments": [],
+            "name": "startEject",
+            "sensitive": false
+        }
+    }
+}

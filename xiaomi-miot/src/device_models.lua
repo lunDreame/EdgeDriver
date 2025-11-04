@@ -4408,11 +4408,46 @@ M.DEVICE_SPECS = {
       mode = { siid = 2, piid = 3 },
       status = { siid = 2, piid = 1 }
     },
+    actions = {
+      start_sweep = { siid = 2, aiid = 1 },
+      stop_sweeping = { siid = 2, aiid = 2 },
+      start_room_sweep = { siid = 2, aiid = 3 },
+      start_dust_arrest = { siid = 2, aiid = 4 },
+      start_mop_wash = { siid = 2, aiid = 6 },
+      start_dry = { siid = 2, aiid = 8 },
+      stop_dry = { siid = 2, aiid = 9 },
+      start_eject = { siid = 2, aiid = 10 }
+    },
     mode_map = {
       [0] = "silent",
       [1] = "basic",
       [2] = "strong",
       [3] = "fullSpeed"
+    },
+    status_map = {
+      [1] = "sweeping",
+      [2] = "idle",
+      [3] = "paused",
+      [4] = "error",
+      [5] = "goCharging",
+      [6] = "charging",
+      [7] = "mopping",
+      [8] = "drying",
+      [9] = "washing",
+      [10] = "goWashing",
+      [11] = "building",
+      [12] = "sweepingAndMopping",
+      [13] = "chargingCompleted",
+      [14] = "upgrading",
+      [19] = "waterInspecting",
+      [21] = "washingMopPause",
+      [22] = "dustCollecting",
+      [23] = "remoteClean"
+    },
+    charging_state_map = {
+      [1] = "charging", -- Charging
+      [2] = "stopped",  -- Not Charging
+      [5] = "charging"  -- Go Charging
     }
   },
   ["xiaomi.vacuum.c103"] = {
