@@ -4907,8 +4907,9 @@ M.DEVICE_SPECS = {
     device_type = "humidifier",
     properties = {
       humidity = { siid = 3, piid = 1, min = 0, max = 100, step = 1, unit = "percentage" },
+      mode = { siid = 2, piid = 3 },
       power = { siid = 2, piid = 1 },
-      target_humidity = { siid = 2, piid = 5, min = 40, max = 70, step = 1, unit = "percentage" },
+      target_humidity = { siid = 2, piid = 6, min = 40, max = 70, step = 1, unit = "percentage" },
     },
     mode_map = {
       [0] = "constantHumidity",
