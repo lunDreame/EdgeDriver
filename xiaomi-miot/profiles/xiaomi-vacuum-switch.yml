@@ -1,4 +1,4 @@
-name: xiaomi-vacuum
+name: xiaomi-vacuum-switch
 components:
   - id: main
     capabilities:
