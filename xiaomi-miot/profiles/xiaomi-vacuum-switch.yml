@@ -2,6 +2,8 @@ name: xiaomi-vacuum
 components:
   - id: main
     capabilities:
+      - id: switch
+        version: 1
       - id: battery
         version: 1
       - id: chargingState

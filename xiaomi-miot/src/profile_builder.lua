@@ -28,6 +28,10 @@ function M.get_profile_for_model(model)
     if device_type == "humidifier" and spec.properties and spec.properties.temperature then
       return "xiaomi-humidifier-temp"
     end
+    -- For vacuums, check if power is supported
+    if device_type == "vacuum" and spec.properties and spec.properties.power then
+      return "xiaomi-vacuum-switch"
+    end
   else
     -- Fallback: infer from model name
     if model:find("light") or model:find("lamp") or model:find("ceiling") then
