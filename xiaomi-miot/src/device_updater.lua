@@ -5,6 +5,7 @@ local log = require "log"
 local capabilities = require "st.capabilities"
 local cosock = require "cosock"
 local MiotProtocol = require "miot_protocol"
+local MiioProtocol = require "miio_protocol"
 
 local M = {}
 
@@ -13,6 +14,15 @@ local function get_miot_protocol(device)
   if not protocol then
     protocol = MiotProtocol.new()
     device:set_field("miot_protocol", protocol)
+  end
+  return protocol
+end
+
+local function get_miio_protocol(device)
+  local protocol = device:get_field("miio_protocol")
+  if not protocol then
+    protocol = MiioProtocol.new()
+    device:set_field("miio_protocol", protocol)
   end
   return protocol
 end
@@ -34,8 +44,212 @@ function M.update_device_state(device)
     return
   end
 
-  if not spec or not spec.properties then
+  if not spec then
     log.warn(string.format("Device spec not found for %s", device.label))
+    return
+  end
+
+  if spec.protocol == "miio" then
+    local protocol = get_miio_protocol(device)
+
+    if not spec.status_properties or not spec.property_map then
+      log.warn(string.format("MiIO spec is incomplete for %s", device.label))
+      return
+    end
+
+    local values = protocol:get_prop(device_data.ip, device_data.token, spec.status_properties)
+    if not values then
+      log.error(string.format("Failed to get properties for %s", device.label))
+      device:offline()
+      return
+    end
+
+    device:online()
+
+    -- Handle raw properties
+    local raw = {}
+    for i, prop_name in ipairs(spec.status_properties) do
+      if values[i] ~= nil then
+        raw[prop_name] = values[i]
+      end
+    end
+
+    -- Handle logical properties
+    local logical = {}
+    for remote_name, logical_name in pairs(spec.property_map) do
+      if raw[remote_name] ~= nil then
+        logical[logical_name] = raw[remote_name]
+      end
+    end
+
+    -- Handle power state
+    if logical.power ~= nil then
+      local v = logical.power
+      local power_state
+      if type(v) == "boolean" then
+        power_state = v
+      elseif type(v) == "string" then
+        power_state = (v == "on")
+      end
+
+      if power_state ~= nil then
+        local current_state = device:get_latest_state("main", capabilities.switch.ID, capabilities.switch.switch.NAME)
+        local new_state = power_state and "on" or "off"
+        if current_state ~= new_state then
+          if power_state then
+            device:emit_event(capabilities.switch.switch.on())
+          else
+            device:emit_event(capabilities.switch.switch.off())
+          end
+        end
+      end
+    end
+
+    -- Handle temperature
+    if logical.temperature ~= nil and type(logical.temperature) == "number" then
+      local t = logical.temperature
+      if t >= -40 and t <= 125 then
+        local current_temp = device:get_latest_state(
+          "main",
+          capabilities.temperatureMeasurement.ID,
+          capabilities.temperatureMeasurement.temperature.NAME
+        )
+        if not current_temp or math.abs(current_temp - t) >= 0.1 then
+          device:emit_event(capabilities.temperatureMeasurement.temperature({ value = t, unit = "C" }))
+        end
+      end
+    end
+
+    -- Handle temperature (0.1°C unit)
+    if logical.temp_dec ~= nil and type(logical.temp_dec) == "number" then
+      local t = logical.temp_dec / 10.0
+      if t >= -40 and t <= 125 then
+        local current_temp = device:get_latest_state(
+          "main",
+          capabilities.temperatureMeasurement.ID,
+          capabilities.temperatureMeasurement.temperature.NAME
+        )
+        if not current_temp or math.abs(current_temp - t) >= 0.1 then
+          device:emit_event(capabilities.temperatureMeasurement.temperature({ value = t, unit = "C" }))
+        end
+      end
+    end
+
+    -- Handle humidity
+    if logical.humidity ~= nil and type(logical.humidity) == "number" then
+      local h = logical.humidity
+      if h >= 0 and h <= 100 then
+        local current_h = device:get_latest_state(
+          "main",
+          capabilities.relativeHumidityMeasurement.ID,
+          capabilities.relativeHumidityMeasurement.humidity.NAME
+        )
+        if not current_h or math.abs(current_h - h) >= 1 then
+          device:emit_event(capabilities.relativeHumidityMeasurement.humidity(h))
+        end
+      end
+    end
+
+    -- Handle AQI
+    if logical.aqi ~= nil and type(logical.aqi) == "number" then
+      local value = logical.aqi
+
+      local aqi_level = "good"
+      if value == 0 or value == 1 then
+        aqi_level = "good"
+      elseif value == 2 or value == 3 then
+        aqi_level = "moderate"
+      elseif value == 4 then
+        aqi_level = "unhealthy"
+      elseif value == 5 then
+        aqi_level = "hazardous"
+      end
+
+      local current_aqi = device:get_latest_state(
+        "main",
+        capabilities.airQualityHealthConcern.ID,
+        capabilities.airQualityHealthConcern.airQualityHealthConcern.NAME
+      )
+      if current_aqi ~= aqi_level then
+        device:emit_event(capabilities.airQualityHealthConcern.airQualityHealthConcern(aqi_level))
+      end
+    end
+
+    -- Handle filter life and status
+    if logical.filter_life_remaining ~= nil and type(logical.filter_life_remaining) == "number" then
+      local value = logical.filter_life_remaining
+
+      local current_filter_state = device:get_latest_state(
+        "main",
+        capabilities.filterState.ID,
+        capabilities.filterState.filterLifeRemaining.NAME
+      )
+      if not current_filter_state or math.abs(current_filter_state - value) >= 1 then
+        device:emit_event(capabilities.filterState.filterLifeRemaining(value))
+      end
+
+      local filter_status = "normal"
+      if value < 10 then
+        filter_status = "replace"
+      end
+
+      local current_filter = device:get_latest_state(
+        "main",
+        capabilities.filterStatus.ID,
+        capabilities.filterStatus.filterStatus.NAME
+      )
+      if current_filter ~= filter_status then
+        device:emit_event(capabilities.filterStatus.filterStatus(filter_status))
+      end
+    elseif logical.filter_hours_used ~= nil and type(logical.filter_hours_used) == "number" then
+      local value = logical.filter_hours_used
+
+      local filter_status = "normal"
+      if value > 4000 then
+        filter_status = "replace"
+      end
+
+      local current_filter = device:get_latest_state(
+        "main",
+        capabilities.filterStatus.ID,
+        capabilities.filterStatus.filterStatus.NAME
+      )
+      if current_filter ~= filter_status then
+        device:emit_event(capabilities.filterStatus.filterStatus(filter_status))
+      end
+    end
+
+    -- Handle load power
+    if device_data.model == "chuangmi.plug.v3" then
+      local load_power_result = protocol:send_raw(device_data.ip, device_data.token, "get_power", {})
+      if load_power_result and #load_power_result > 0 then
+        local load_power = load_power_result[1] * 0.01
+        local current_power = device:get_latest_state(
+          "main",
+          capabilities.powerMeter.ID,
+          capabilities.powerMeter.power.NAME
+        )
+        if not current_power or math.abs(current_power - load_power) >= 0.1 then
+          device:emit_event(capabilities.powerMeter.power({ value = load_power, unit = "W" }))
+        end
+      end
+    end
+
+    -- Handle USB power
+    if logical.usb_power ~= nil then
+      log.debug(string.format("USB power (logical): %s", tostring(logical.usb_power)))
+    end
+
+    -- Handle LED raw
+    if logical.led_raw ~= nil then
+      log.debug(string.format("LED raw state: %s", tostring(logical.led_raw)))
+    end
+
+    return
+  end
+
+  if not spec.properties then
+    log.warn(string.format("Device properties not found for %s", device.label))
     return
   end
 

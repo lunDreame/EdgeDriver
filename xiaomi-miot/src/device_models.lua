@@ -152,15 +152,36 @@ M.DEVICE_SPECS = {
   -- Chuangmi Plugs
   ["chuangmi.plug.v1"] = {
     device_type = "switch",
-    properties = {
-      power = { siid = 2, piid = 1 }
+    protocol = "miio",
+    status_properties = { "on", "usb_on", "temperature" },
+    property_map = {
+      on          = "power",
+      usb_on      = "usb_power",
+      temperature = "temperature",
+    },
+    commands = {
+      power_on  = { method = "set_on", params = {} },
+      power_off = { method = "set_off", params = {} },
+      usb_on    = { method = "set_usb_on", params = {} },
+      usb_off   = { method = "set_usb_off", params = {} },
     }
   },
   ["chuangmi.plug.v3"] = {
     device_type = "switch",
-    properties = {
-      power = { siid = 2, piid = 1 },
-      temperature = { siid = 2, piid = 2, min = -40, max = 125, step = 0.1, unit = "celsius" }
+    protocol = "miio",
+    status_properties = { "on", "usb_on", "temperature", "wifi_led" },
+    property_map = {
+      on          = "power",
+      usb_on      = "usb_power",
+      temperature = "temperature",
+      wifi_led    = "led_raw",
+    },
+    commands = {
+      power_on  = { method = "set_power", params = { "on" } },
+      power_off = { method = "set_power", params = { "off" } },
+      usb_on    = { method = "set_usb_on", params = {} },
+      usb_off   = { method = "set_usb_off", params = {} },
+      set_led   = { method = "set_wifi_led", param_key = "on_off" },
     }
   },
   ["chuangmi.plug.212a01"] = {
@@ -223,9 +244,31 @@ M.DEVICE_SPECS = {
   -- Zimi Powerstrips
   ["zimi.powerstrip.v2"] = {
     device_type = "switch",
-    properties = {
-      power = { siid = 2, piid = 1 },
-      temperature = { siid = 2, piid = 2, min = -40, max = 125, step = 0.01, unit = "celsius" }
+    protocol = "miio",
+    status_properties = {
+      "power",
+      "temperature",
+      "current",
+      "mode",
+      "power_consume_rate",
+      "wifi_led",
+      "power_price",
+    },
+    property_map = {
+      power              = "power",
+      temperature        = "temperature",
+      current            = "current",
+      power_consume_rate = "load_power",
+      mode               = "mode",
+      wifi_led           = "led_raw",
+      power_price        = "power_price",
+    },
+    commands = {
+      power_on        = { method = "set_power", params = { "on" } },
+      power_off       = { method = "set_power", params = { "off" } },
+      set_led         = { method = "set_wifi_led", param_key = "on_off" },
+      set_power_mode  = { method = "set_power_mode", param_key = "mode" },
+      set_power_price = { method = "set_power_price", param_key = "price" },
     }
   },
 
@@ -1566,36 +1609,70 @@ M.DEVICE_SPECS = {
   -- Chuangmi Plugs Extended
   ["chuangmi.plug.hmi205"] = {
     device_type = "switch",
-    properties = {
-      power = { siid = 2, piid = 1 },
-      temperature = { siid = 2, piid = 2, min = -40, max = 125, step = 0.1, unit = "celsius" }
+    protocol = "miio",
+    status_properties = { "power", "temperature" },
+    property_map = {
+      power       = "power",
+      temperature = "temperature",
+    },
+    commands = {
+      power_on  = { method = "set_power", params = { "on" } },
+      power_off = { method = "set_power", params = { "off" } },
     }
   },
   ["chuangmi.plug.hmi206"] = {
     device_type = "switch",
-    properties = {
-      power = { siid = 2, piid = 1 },
-      temperature = { siid = 2, piid = 2, min = 0, max = 100, step = 1, unit = "celsius" }
+    protocol = "miio",
+    status_properties = { "power", "temperature" },
+    property_map = {
+      power       = "power",
+      temperature = "temperature",
+    },
+    commands = {
+      power_on  = { method = "set_power", params = { "on" } },
+      power_off = { method = "set_power", params = { "off" } },
     }
   },
   ["chuangmi.plug.hmi208"] = {
     device_type = "switch",
-    properties = {
-      power = { siid = 2, piid = 1 }
+    protocol = "miio",
+    status_properties = { "power", "usb_on", "temperature" },
+    property_map = {
+      power       = "power",
+      usb_on      = "usb_power",
+      temperature = "temperature",
+    },
+    commands = {
+      power_on  = { method = "set_power", params = { "on" } },
+      power_off = { method = "set_power", params = { "off" } },
+      usb_on    = { method = "set_usb_on", params = {} },
+      usb_off   = { method = "set_usb_off", params = {} },
     }
   },
   ["chuangmi.plug.m1"] = {
     device_type = "switch",
-    properties = {
-      power = { siid = 2, piid = 1 },
-      temperature = { siid = 2, piid = 2, min = -40, max = 125, step = 0.1, unit = "celsius" }
+    protocol = "miio",
+    status_properties = { "power", "temperature" },
+    property_map = {
+      power       = "power",
+      temperature = "temperature",
+    },
+    commands = {
+      power_on  = { method = "set_power", params = { "on" } },
+      power_off = { method = "set_power", params = { "off" } },
     }
   },
   ["chuangmi.plug.m3"] = {
     device_type = "switch",
-    properties = {
-      power = { siid = 2, piid = 1 },
-      temperature = { siid = 2, piid = 2, min = 0, max = 100, step = 1, unit = "celsius" }
+    protocol = "miio",
+    status_properties = { "power", "temperature" },
+    property_map = {
+      power       = "power",
+      temperature = "temperature",
+    },
+    commands = {
+      power_on  = { method = "set_power", params = { "on" } },
+      power_off = { method = "set_power", params = { "off" } },
     }
   },
 
@@ -3422,19 +3499,72 @@ M.DEVICE_SPECS = {
   },
   ["zhimi.airpurifier.v6"] = {
     device_type = "air-purifier",
-    properties = {
-      fan_level = { siid = 2, piid = 2 },
-      filter_life_level = { siid = 4, piid = 1, min = 0, max = 100, step = 1, unit = "percentage" },
-      humidity = { siid = 3, piid = 1, min = 0, max = 100, step = 1, unit = "percentage" },
-      mode = { siid = 2, piid = 3 },
-      pm25 = { siid = 3, piid = 2, min = 0, max = 600, step = 1 },
-      power = { siid = 2, piid = 1 },
-      temperature = { siid = 3, piid = 3, min = -40, max = 125, step = 0.1, unit = "celsius" }
+    protocol = "miio",
+    status_properties = {
+      "power",
+      "aqi",
+      "average_aqi",
+      "humidity",
+      "temp_dec",
+      "mode",
+      "favorite_level",
+      "filter1_life",
+      "f1_hour_used",
+      "use_time",
+      "motor1_speed",
+      "motor2_speed",
+      "purify_volume",
+      "f1_hour",
+      "led",
+      "led_b",
+      "bright",
+      "buzzer",
+      "child_lock",
+      "volume",
+      "rfid_product_id",
+      "rfid_tag",
+      "act_sleep",
+      "sleep_mode",
+      "sleep_time",
+      "sleep_data_num",
+      "app_extra",
+      "act_det",
+      "button_pressed",
     },
-    mode_map = {
-      [0] = "auto",
-      [1] = "sleep",
-      [2] = "favorite"
+    property_map = {
+      power           = "power",
+      aqi             = "aqi",
+      humidity        = "humidity",
+      temp_dec        = "temp_dec",
+      mode            = "mode_raw",
+      favorite_level  = "favorite_level",
+      filter1_life    = "filter_life_remaining",
+      f1_hour_used    = "filter_hours_used",
+      use_time        = "use_time",
+      motor1_speed    = "motor_speed",
+      motor2_speed    = "motor2_speed",
+      purify_volume   = "purify_volume",
+      f1_hour         = "filter_hours_total",
+      led             = "led_raw",
+      led_b           = "led_brightness_raw",
+      bright          = "illuminance",
+      buzzer          = "buzzer_raw",
+      child_lock      = "child_lock_raw",
+      volume          = "volume",
+      rfid_product_id = "filter_rfid_product_id",
+      rfid_tag        = "filter_rfid_tag",
+      act_sleep       = "act_sleep",
+      sleep_mode      = "sleep_mode_raw",
+      sleep_time      = "sleep_time",
+      sleep_data_num  = "sleep_data_num",
+      app_extra       = "app_extra",
+      act_det         = "act_det",
+      button_pressed  = "button_pressed",
+    },
+    commands = {
+      power_on  = { method = "set_power", params = { "on" } },
+      power_off = { method = "set_power", params = { "off" } },
+      set_mode  = { method = "set_mode", param_key = "mode" },
     }
   },
   ["zhimi.airpurifier.v7"] = {

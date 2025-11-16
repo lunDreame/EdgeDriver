@@ -4,6 +4,7 @@
 local log = require "log"
 local capabilities = require "st.capabilities"
 local MiotProtocol = require "miot_protocol"
+local MiioProtocol = require "miio_protocol"
 
 local M = {}
 
@@ -12,6 +13,15 @@ local function get_miot_protocol(device)
   if not protocol then
     protocol = MiotProtocol.new()
     device:set_field("miot_protocol", protocol)
+  end
+  return protocol
+end
+
+local function get_miio_protocol(device)
+  local protocol = device:get_field("miio_protocol")
+  if not protocol then
+    protocol = MiioProtocol.new()
+    device:set_field("miio_protocol", protocol)
   end
   return protocol
 end
@@ -30,7 +40,33 @@ function M.handle_switch_on(driver, device, command)
   local device_data = get_device_data(device)
   local spec = get_device_spec(device)
 
-  if not spec or not spec.properties or not spec.properties.power then
+  if not spec then
+    log.warn("Device spec not found")
+    return
+  end
+
+  if spec.protocol == "miio" then
+    if not spec.commands or not spec.commands.power_on then
+      log.warn("MiIO device does not define commands.power_on")
+      return
+    end
+
+    local protocol = get_miio_protocol(device)
+    local cmd = spec.commands.power_on
+    local params = cmd.params or {}
+
+    local result = protocol:send_raw(device_data.ip, device_data.token, cmd.method, params)
+    local success = result ~= nil
+
+    if success then
+      device:emit_event(capabilities.switch.switch.on())
+    else
+      log.error("Failed to turn on MiIO switch device")
+    end
+    return
+  end
+
+  if not spec.properties or not spec.properties.power then
     log.warn("Device spec or power property not found")
     return
   end
@@ -59,7 +95,33 @@ function M.handle_switch_off(driver, device, command)
   local device_data = get_device_data(device)
   local spec = get_device_spec(device)
 
-  if not spec or not spec.properties or not spec.properties.power then
+  if not spec then
+    log.warn("Device spec not found")
+    return
+  end
+
+  if spec.protocol == "miio" then
+    if not spec.commands or not spec.commands.power_off then
+      log.warn("MiIO device does not define commands.power_off")
+      return
+    end
+
+    local protocol = get_miio_protocol(device)
+    local cmd = spec.commands.power_off
+    local params = cmd.params or {}
+
+    local result = protocol:send_raw(device_data.ip, device_data.token, cmd.method, params)
+    local success = result ~= nil
+
+    if success then
+      device:emit_event(capabilities.switch.switch.off())
+    else
+      log.error("Failed to turn off MiIO switch device")
+    end
+    return
+  end
+
+  if not spec.properties or not spec.properties.power then
     log.warn("Device spec or power property not found")
     return
   end

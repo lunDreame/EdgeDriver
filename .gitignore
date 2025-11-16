@@ -43,4 +43,5 @@ luac.out
 /scripts/
 /welo/
 /xiaomi-miot/custom_components/
+/xiaomi-miot/python-miio/
 .DS_Store
