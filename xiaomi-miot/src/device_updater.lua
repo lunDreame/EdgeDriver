@@ -245,6 +245,127 @@ function M.update_device_state(device)
       log.debug(string.format("LED raw state: %s", tostring(logical.led_raw)))
     end
 
+    -- Handle light
+    if spec.device_type == "light" then
+      -- Handle brightness
+      if logical.brightness ~= nil and type(logical.brightness) == "number" then
+        local level = logical.brightness
+        if level >= 1 and level <= 100 then
+          local current_level = device:get_latest_state(
+            "main",
+            capabilities.switchLevel.ID,
+            capabilities.switchLevel.level.NAME
+          )
+          if not current_level or math.abs(current_level - level) >= 1 then
+            device:emit_event(capabilities.switchLevel.level(level))
+          end
+        end
+      end
+
+      -- Handle RGB color
+      if logical.rgb ~= nil and type(logical.rgb) == "number" then
+        local utils = require "utils"
+        local r, g, b = utils.int_to_rgb(logical.rgb)
+
+        -- Convert RGB to HSV for SmartThings
+        r, g, b = r / 255, g / 255, b / 255
+        local max = math.max(r, g, b)
+        local min = math.min(r, g, b)
+        local delta = max - min
+
+        local h, s, v = 0, 0, max
+
+        if delta ~= 0 then
+          if max == r then
+            h = 60 * (((g - b) / delta) % 6)
+          elseif max == g then
+            h = 60 * ((b - r) / delta + 2)
+          else
+            h = 60 * ((r - g) / delta + 4)
+          end
+
+          if max ~= 0 then
+            s = delta / max
+          end
+        end
+
+        -- Convert to SmartThings format (hue: 0-100, saturation: 0-100)
+        h = math.floor((h / 360) * 100)
+        s = math.floor(s * 100)
+
+        local current_color = device:get_latest_state(
+          "main",
+          capabilities.colorControl.ID,
+          capabilities.colorControl.color.NAME
+        )
+
+        if not current_color or current_color.hue ~= h or current_color.saturation ~= s then
+          device:emit_event(capabilities.colorControl.color({ hue = h, saturation = s }))
+        end
+      end
+
+      -- Handle color temperature
+      if logical.color_temperature ~= nil and type(logical.color_temperature) == "number" then
+        local ct = logical.color_temperature
+        if ct >= 1700 and ct <= 6500 then
+          local current_ct = device:get_latest_state(
+            "main",
+            capabilities.colorTemperature.ID,
+            capabilities.colorTemperature.colorTemperature.NAME
+          )
+          if not current_ct or math.abs(current_ct - ct) >= 1 then
+            device:emit_event(capabilities.colorTemperature.colorTemperature(ct))
+          end
+        end
+      end
+
+      -- Handle color mode
+      if logical.color_mode_raw ~= nil then
+        log.debug(string.format("Color mode: %s", tostring(logical.color_mode_raw)))
+      end
+    end
+
+    -- Handle humidifier
+    if spec.device_type == "humidifier" then
+      -- Handle mode
+      if logical.mode_raw ~= nil and type(logical.mode_raw) == "number" and spec.mode_map then
+        local mode_name = spec.mode_map[logical.mode_raw]
+        if mode_name then
+          local humidifier_mode_capability = capabilities["dictionaryangel05655.humidifierMode"]
+          local current_mode = device:get_latest_state(
+            "main",
+            humidifier_mode_capability.ID,
+            humidifier_mode_capability.humidifierMode.NAME
+          )
+          if current_mode ~= mode_name then
+            device:emit_event(humidifier_mode_capability.humidifierMode(mode_name))
+          end
+        end
+      end
+
+      -- Handle target humidity
+      if logical.target_humidity ~= nil and type(logical.target_humidity) == "number" then
+        local target_hum = logical.target_humidity
+        if target_hum >= 30 and target_hum <= 80 then
+          local target_humidity_capability = capabilities["dictionaryangel05655.targetHumidity"]
+          local current_target = device:get_latest_state(
+            "main",
+            target_humidity_capability.ID,
+            target_humidity_capability.targetHumidity.NAME
+          )
+          if not current_target or math.abs(current_target.value - target_hum) >= 1 then
+            device:emit_event(target_humidity_capability.targetHumidity({ value = target_hum, unit = "%" }))
+          end
+        end
+      end
+
+      -- Handle dry mode
+      if logical.dry_raw ~= nil then
+        local dry_state = (logical.dry_raw == "on" or logical.dry_raw == true)
+        log.debug(string.format("Dry mode: %s", tostring(dry_state)))
+      end
+    end
+
     return
   end
 

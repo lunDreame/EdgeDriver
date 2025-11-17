@@ -4,6 +4,7 @@
 local log = require "log"
 local capabilities = require "st.capabilities"
 local MiotProtocol = require "miot_protocol"
+local MiioProtocol = require "miio_protocol"
 
 local dehumidifier_mode_capability = capabilities["dictionaryangel05655.dehumidifierMode"]
 local humidifier_mode_capability = capabilities["dictionaryangel05655.humidifierMode"]
@@ -16,6 +17,15 @@ local function get_miot_protocol(device)
   if not protocol then
     protocol = MiotProtocol.new()
     device:set_field("miot_protocol", protocol)
+  end
+  return protocol
+end
+
+local function get_miio_protocol(device)
+  local protocol = device:get_field("miio_protocol")
+  if not protocol then
+    protocol = MiioProtocol.new()
+    device:set_field("miio_protocol", protocol)
   end
   return protocol
 end
@@ -105,7 +115,26 @@ function M.handle_target_humidity(driver, device, command)
   local device_data = get_device_data(device)
   local spec = get_device_spec(device)
 
-  if not spec or not spec.properties or not spec.properties.target_humidity then
+  if not spec then
+    log.warn("Device spec not found")
+    return
+  end
+
+  if spec.protocol == "miio" then
+    -- For MiIO, use set_limit_hum method
+    local protocol = get_miio_protocol(device)
+    local result = protocol:send_raw(device_data.ip, device_data.token, "set_limit_hum", { humidity })
+    local success = result ~= nil
+
+    if success then
+      device:emit_event(target_humidity_capability.targetHumidity({ value = humidity, unit = "%" }))
+    else
+      log.error("Failed to set target humidity for MiIO device")
+    end
+    return
+  end
+
+  if not spec.properties or not spec.properties.target_humidity then
     log.warn("Device does not support target_humidity property")
     return
   end
@@ -175,8 +204,8 @@ function M.handle_humidifier_mode(driver, device, command)
   local device_data = get_device_data(device)
   local spec = get_device_spec(device)
 
-  if not spec or not spec.properties or not spec.properties.mode then
-    log.warn("Device does not support mode property")
+  if not spec then
+    log.warn("Device spec not found")
     return
   end
 
@@ -196,6 +225,38 @@ function M.handle_humidifier_mode(driver, device, command)
 
   if not mode_value then
     log.error(string.format("Invalid mode: %s", command.args.mode))
+    return
+  end
+
+  if spec.protocol == "miio" then
+    if not spec.commands or not spec.commands.set_mode then
+      log.warn("MiIO device does not define commands.set_mode")
+      return
+    end
+
+    local protocol = get_miio_protocol(device)
+    local cmd = spec.commands.set_mode
+    local params = {}
+
+    if cmd.param_key then
+      params = { mode_value }
+    else
+      params = cmd.params or {}
+    end
+
+    local result = protocol:send_raw(device_data.ip, device_data.token, cmd.method, params)
+    local success = result ~= nil
+
+    if success then
+      device:emit_event(humidifier_mode_capability.humidifierMode(command.args.mode))
+    else
+      log.error("Failed to set humidifier mode for MiIO device")
+    end
+    return
+  end
+
+  if not spec.properties or not spec.properties.mode then
+    log.warn("Device does not support mode property")
     return
   end
 

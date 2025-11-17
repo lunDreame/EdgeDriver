@@ -150,15 +150,47 @@ function M.handle_switch_level(driver, device, command)
   local device_data = get_device_data(device)
   local spec = get_device_spec(device)
 
-  if not spec or not spec.properties or not spec.properties.brightness then
+  if not spec then
+    log.warn("Device spec not found")
+    return
+  end
+
+  local level = command.args.level
+
+  if spec.protocol == "miio" then
+    if not spec.commands or not spec.commands.set_brightness then
+      log.warn("MiIO device does not define commands.set_brightness")
+      return
+    end
+
+    local protocol = get_miio_protocol(device)
+    local cmd = spec.commands.set_brightness
+    local params = {}
+
+    if cmd.param_key then
+      params = { level }
+    else
+      params = cmd.params or {}
+    end
+
+    local result = protocol:send_raw(device_data.ip, device_data.token, cmd.method, params)
+    local success = result ~= nil
+
+    if success then
+      device:emit_event(capabilities.switchLevel.level(level))
+    else
+      log.error("Failed to set brightness for MiIO device")
+    end
+    return
+  end
+
+  if not spec.properties or not spec.properties.brightness then
     log.warn("Device spec or brightness property not found")
     return
   end
 
   local protocol = get_miot_protocol(device)
   local prop = spec.properties.brightness
-
-  local level = command.args.level
 
   local success = protocol:set_property(
     device_data.ip,
@@ -181,15 +213,47 @@ function M.handle_color_temperature(driver, device, command)
   local device_data = get_device_data(device)
   local spec = get_device_spec(device)
 
-  if not spec or not spec.properties or not spec.properties.color_temperature then
+  if not spec then
+    log.warn("Device spec not found")
+    return
+  end
+
+  local kelvin = command.args.temperature
+
+  if spec.protocol == "miio" then
+    if not spec.commands or not spec.commands.set_color_temperature then
+      log.warn("MiIO device does not define commands.set_color_temperature")
+      return
+    end
+
+    local protocol = get_miio_protocol(device)
+    local cmd = spec.commands.set_color_temperature
+    local params = {}
+
+    if cmd.param_key then
+      params = { kelvin, "smooth", 500 }
+    else
+      params = cmd.params or {}
+    end
+
+    local result = protocol:send_raw(device_data.ip, device_data.token, cmd.method, params)
+    local success = result ~= nil
+
+    if success then
+      device:emit_event(capabilities.colorTemperature.colorTemperature(kelvin))
+    else
+      log.error("Failed to set color temperature for MiIO device")
+    end
+    return
+  end
+
+  if not spec.properties or not spec.properties.color_temperature then
     log.warn("Device spec or color_temperature property not found")
     return
   end
 
   local protocol = get_miot_protocol(device)
   local prop = spec.properties.color_temperature
-
-  local kelvin = command.args.temperature
 
   local success = protocol:set_property(
     device_data.ip,
@@ -555,15 +619,12 @@ function M.handle_set_color(driver, device, command)
   local device_data = get_device_data(device)
   local spec = get_device_spec(device)
 
-  if not spec or not spec.properties or not spec.properties.color then
-    log.warn("Device spec or color property not found")
+  if not spec then
+    log.warn("Device spec not found")
     return
   end
 
-  local protocol = get_miot_protocol(device)
-  local prop = spec.properties.color
   local utils = require "utils"
-
   local hue = command.args.color.hue
   local saturation = command.args.color.saturation
 
@@ -596,6 +657,41 @@ function M.handle_set_color(driver, device, command)
   b = math.floor((b + m) * 255)
 
   local rgb_value = utils.rgb_to_int(r, g, b)
+
+  if spec.protocol == "miio" then
+    if not spec.commands or not spec.commands.set_rgb_int then
+      log.warn("MiIO device does not define commands.set_rgb_int")
+      return
+    end
+
+    local protocol = get_miio_protocol(device)
+    local cmd = spec.commands.set_rgb_int
+    local params = {}
+
+    if cmd.param_key then
+      params = { rgb_value, "smooth", 500 }
+    else
+      params = cmd.params or {}
+    end
+
+    local result = protocol:send_raw(device_data.ip, device_data.token, cmd.method, params)
+    local success = result ~= nil
+
+    if success then
+      device:emit_event(capabilities.colorControl.color(command.args.color))
+    else
+      log.error("Failed to set color for MiIO device")
+    end
+    return
+  end
+
+  if not spec.properties or not spec.properties.color then
+    log.warn("Device spec or color property not found")
+    return
+  end
+
+  local protocol = get_miot_protocol(device)
+  local prop = spec.properties.color
 
   local success = protocol:set_property(
     device_data.ip,
