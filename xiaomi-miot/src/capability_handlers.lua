@@ -35,7 +35,8 @@ local function get_device_spec(device)
 end
 
 function M.handle_switch_on(driver, device, command)
-  log.info(string.format("Switch ON command for %s", device.label))
+  local component_id = command.component and command.component.id or "main"
+  log.info(string.format("Switch ON command for %s (component: %s)", device.label, component_id))
 
   local device_data = get_device_data(device)
   local spec = get_device_spec(device)
@@ -46,6 +47,34 @@ function M.handle_switch_on(driver, device, command)
   end
 
   if spec.protocol == "miio" then
+    -- Handle USB component
+    if component_id == "usb" then
+      if not spec.commands or not spec.commands.usb_on then
+        log.warn("MiIO device does not define commands.usb_on")
+        return
+      end
+
+      local protocol = get_miio_protocol(device)
+      local cmd = spec.commands.usb_on
+      local params = cmd.params or {}
+
+      local result = protocol:send_raw(device_data.ip, device_data.token, cmd.method, params)
+      local success = result ~= nil
+
+      if success then
+        local component = device.profile.components[component_id]
+        if component then
+          device:emit_component_event(component, capabilities.switch.switch.on())
+        else
+          log.warn(string.format("Component %s not found", component_id))
+        end
+      else
+        log.error("Failed to turn on USB switch")
+      end
+      return
+    end
+
+    -- Handle main component
     if not spec.commands or not spec.commands.power_on then
       log.warn("MiIO device does not define commands.power_on")
       return
@@ -59,7 +88,12 @@ function M.handle_switch_on(driver, device, command)
     local success = result ~= nil
 
     if success then
-      device:emit_event(capabilities.switch.switch.on())
+      local component = device.profile.components[component_id]
+      if component then
+        device:emit_component_event(component, capabilities.switch.switch.on())
+      else
+        log.warn(string.format("Component %s not found", component_id))
+      end
     else
       log.error("Failed to turn on MiIO switch device")
     end
@@ -83,14 +117,20 @@ function M.handle_switch_on(driver, device, command)
   )
 
   if success then
-    device:emit_event(capabilities.switch.switch.on())
+    local component = device.profile.components[component_id]
+    if component then
+      device:emit_component_event(component, capabilities.switch.switch.on())
+    else
+      log.warn(string.format("Component %s not found", component_id))
+    end
   else
     log.error("Failed to turn on device")
   end
 end
 
 function M.handle_switch_off(driver, device, command)
-  log.info(string.format("Switch OFF command for %s", device.label))
+  local component_id = command.component and command.component.id or "main"
+  log.info(string.format("Switch OFF command for %s (component: %s)", device.label, component_id))
 
   local device_data = get_device_data(device)
   local spec = get_device_spec(device)
@@ -101,6 +141,34 @@ function M.handle_switch_off(driver, device, command)
   end
 
   if spec.protocol == "miio" then
+    -- Handle USB component
+    if component_id == "usb" then
+      if not spec.commands or not spec.commands.usb_off then
+        log.warn("MiIO device does not define commands.usb_off")
+        return
+      end
+
+      local protocol = get_miio_protocol(device)
+      local cmd = spec.commands.usb_off
+      local params = cmd.params or {}
+
+      local result = protocol:send_raw(device_data.ip, device_data.token, cmd.method, params)
+      local success = result ~= nil
+
+      if success then
+        local component = device.profile.components[component_id]
+        if component then
+          device:emit_component_event(component, capabilities.switch.switch.off())
+        else
+          log.warn(string.format("Component %s not found", component_id))
+        end
+      else
+        log.error("Failed to turn off USB switch")
+      end
+      return
+    end
+
+    -- Handle main component
     if not spec.commands or not spec.commands.power_off then
       log.warn("MiIO device does not define commands.power_off")
       return
@@ -114,7 +182,12 @@ function M.handle_switch_off(driver, device, command)
     local success = result ~= nil
 
     if success then
-      device:emit_event(capabilities.switch.switch.off())
+      local component = device.profile.components[component_id]
+      if component then
+        device:emit_component_event(component, capabilities.switch.switch.off())
+      else
+        log.warn(string.format("Component %s not found", component_id))
+      end
     else
       log.error("Failed to turn off MiIO switch device")
     end
@@ -138,7 +211,12 @@ function M.handle_switch_off(driver, device, command)
   )
 
   if success then
-    device:emit_event(capabilities.switch.switch.off())
+    local component = device.profile.components[component_id]
+    if component then
+      device:emit_component_event(component, capabilities.switch.switch.off())
+    else
+      log.warn(string.format("Component %s not found", component_id))
+    end
   else
     log.error("Failed to turn off device")
   end

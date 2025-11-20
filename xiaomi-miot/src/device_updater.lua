@@ -4,6 +4,7 @@
 local log = require "log"
 local capabilities = require "st.capabilities"
 local cosock = require "cosock"
+local json = require "dkjson"
 local MiotProtocol = require "miot_protocol"
 local MiioProtocol = require "miio_protocol"
 
@@ -81,6 +82,8 @@ function M.update_device_state(device)
         logical[logical_name] = raw[remote_name]
       end
     end
+
+    log.debug(string.format("Logical properties: %s", json.encode(logical)))
 
     -- Handle power state
     if logical.power ~= nil then
@@ -237,7 +240,32 @@ function M.update_device_state(device)
 
     -- Handle USB power
     if logical.usb_power ~= nil then
-      log.debug(string.format("USB power (logical): %s", tostring(logical.usb_power)))
+      local v = logical.usb_power
+      local usb_power_state
+      if type(v) == "boolean" then
+        usb_power_state = v
+      elseif type(v) == "string" then
+        usb_power_state = (v == "on")
+      elseif type(v) == "number" then
+        usb_power_state = (v == 1)
+      end
+
+      if usb_power_state ~= nil then
+        local current_state = device:get_latest_state("usb", capabilities.switch.ID, capabilities.switch.switch.NAME)
+        local new_state = usb_power_state and "on" or "off"
+        if current_state ~= new_state then
+          local usb_component = device.profile.components.usb
+          if usb_component then
+            if usb_power_state then
+              device:emit_component_event(usb_component, capabilities.switch.switch.on())
+            else
+              device:emit_component_event(usb_component, capabilities.switch.switch.off())
+            end
+          else
+            log.warn("USB component not found in device profile")
+          end
+        end
+      end
     end
 
     -- Handle LED raw
@@ -648,6 +676,22 @@ function M.process_property_value(device, spec, siid, piid, value)
             device:emit_event(capabilities.thermostatMode.thermostatMode("off"))
           end
         end
+      end
+    end
+  elseif prop_name == "usb_power" or prop_name == "usbPower" then
+    -- Handle USB power for usb component
+    local current_state = device:get_latest_state("usb", capabilities.switch.ID, capabilities.switch.switch.NAME)
+    local new_state = value and "on" or "off"
+    if current_state ~= new_state then
+      local usb_component = device.profile.components.usb
+      if usb_component then
+        if value then
+          device:emit_component_event(usb_component, capabilities.switch.switch.on())
+        else
+          device:emit_component_event(usb_component, capabilities.switch.switch.off())
+        end
+      else
+        log.warn("USB component not found in device profile")
       end
     end
   elseif prop_name == "brightness" then

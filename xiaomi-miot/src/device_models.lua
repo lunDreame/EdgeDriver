@@ -153,13 +153,16 @@ M.DEVICE_SPECS = {
   ["chuangmi.plug.v1"] = {
     device_type = "switch",
     protocol = "miio",
-    status_properties = { "on" },
+    status_properties = { "on", "usb_on" },
     property_map = {
       on = "power",
+      usb_on = "usb_power",
     },
     commands = {
       power_on  = { method = "set_on", params = {} },
       power_off = { method = "set_off", params = {} },
+      usb_on    = { method = "set_usb_on", params = {} },
+      usb_off   = { method = "set_usb_off", params = {} },
     }
   },
   ["chuangmi.plug.v3"] = {
