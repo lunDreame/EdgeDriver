@@ -13,7 +13,7 @@ local function get_miot_protocol(device)
   local protocol = device:get_field("miot_protocol")
   if not protocol then
     protocol = MiotProtocol.new()
-    device:set_field("miot_protocol", protocol)
+    device:set_field("miot_protocol", protocol, { persist = true })
   end
   return protocol
 end
@@ -22,7 +22,7 @@ local function get_miio_protocol(device)
   local protocol = device:get_field("miio_protocol")
   if not protocol then
     protocol = MiioProtocol.new()
-    device:set_field("miio_protocol", protocol)
+    device:set_field("miio_protocol", protocol, { persist = true })
   end
   return protocol
 end

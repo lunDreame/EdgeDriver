@@ -11,7 +11,7 @@ local function get_miot_protocol(device)
   local protocol = device:get_field("miot_protocol")
   if not protocol then
     protocol = MiotProtocol.new()
-    device:set_field("miot_protocol", protocol)
+    device:set_field("miot_protocol", protocol, { persist = true })
   end
   return protocol
 end
@@ -44,7 +44,7 @@ function M.handle_shade_open(driver, device, command)
       device_data.token,
       prop.siid,
       prop.piid,
-      0  -- Open command
+      0 -- Open command
     )
 
     if success then
@@ -58,7 +58,7 @@ function M.handle_shade_open(driver, device, command)
       device_data.token,
       prop.siid,
       prop.piid,
-      100  -- Fully open
+      100 -- Fully open
     )
 
     if success then
@@ -87,7 +87,7 @@ function M.handle_shade_close(driver, device, command)
       device_data.token,
       prop.siid,
       prop.piid,
-      1  -- Close command
+      1 -- Close command
     )
 
     if success then
@@ -100,7 +100,7 @@ function M.handle_shade_close(driver, device, command)
       device_data.token,
       prop.siid,
       prop.piid,
-      0  -- Fully closed
+      0 -- Fully closed
     )
 
     if success then
@@ -128,7 +128,7 @@ function M.handle_shade_pause(driver, device, command)
     device_data.token,
     prop.siid,
     prop.piid,
-    2  -- Pause/Stop command
+    2 -- Pause/Stop command
   )
 
   if success then
