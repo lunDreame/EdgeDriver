@@ -1,0 +1,18 @@
+{
+    "files.trimTrailingWhitespace": true,
+    "files.trimFinalNewlines": true,
+    "editor.formatOnSave": true,
+    "[lua]": {
+        "editor.defaultFormatter": "sumneko.lua",
+        "editor.formatOnSave": true,
+        "files.trimTrailingWhitespace": true
+    },
+    "[markdown]": {
+        "files.trimTrailingWhitespace": false
+    },
+    "Lua.runtime.version": "Lua 5.4",
+    "Lua.diagnostics.globals": [
+        "vim"
+    ],
+    "Lua.workspace.checkThirdParty": false
+}

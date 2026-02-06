@@ -1,0 +1,114 @@
+name: 🐛 Xiaomi MIoT 드라이버 버그 리포트
+description: Xiaomi MIoT 드라이버 관련 문제를 신고해주세요
+title: "[Xiaomi MIoT] "
+labels: ["bug", "xiaomi-miot"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Xiaomi MIoT 드라이버 관련 문제를 신고해주시기 전에 [README](../xiaomi-miot/README.md)를 확인해주세요.
+
+  - type: dropdown
+    id: device_type
+    attributes:
+      label: 장치 유형
+      description: 문제가 발생한 장치 유형을 선택해주세요
+      options:
+        - 조명 (Light)
+        - 스위치 (Switch)
+        - 선풍기 (Fan)
+        - 공기청정기 (Air Purifier)
+        - 가습기 (Humidifier)
+        - 제습기 (Dehumidifier)
+        - 로봇청소기 (Vacuum)
+        - 커버/블라인드 (Cover)
+        - 온도조절기 (Climate/Heater)
+        - 센서 (Sensor)
+        - 기타
+    validations:
+      required: true
+
+  - type: input
+    id: device_model
+    attributes:
+      label: 장치 모델
+      description: "장치 모델명 (예: dmaker.fan.p11, zhimi.airpurifier.v1 등)"
+      placeholder: dmaker.fan.p11
+    validations:
+      required: true
+
+  - type: input
+    id: miot_spec_link
+    attributes:
+      label: MIoT Spec 링크
+      description: "https://home.miot-spec.com/ 에서 찾은 장치 스펙 링크를 붙여넣어주세요"
+      placeholder: https://home.miot-spec.com/spec/dmaker.fan.p11
+    validations:
+      required: true
+
+  - type: textarea
+    id: what_happened
+    attributes:
+      label: 문제 상황
+      description: 무엇이 발생했나요?
+      placeholder: "예: 선풍기를 켜려고 했지만 반응이 없습니다."
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 예상 동작
+      description: 어떤 동작을 기대했나요?
+      placeholder: "예: 선풍기가 켜져야 합니다."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 재현 단계
+      description: 문제를 재현하는 단계를 알려주세요
+      value: |
+        1.
+        2.
+        3.
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: 환경 정보
+      description: 다음 정보를 알려주세요 (개인정보는 제외해주세요)
+      value: |
+        - SmartThings Hub/Station 모델:
+        - Wi-Fi 네트워크: 같은 네트워크 사용 (예/아니오)
+        - 장치가 Mi Home 앱에 등록되어 있나요?: (예/아니오)
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 로그 (필수)
+      description: SmartThings CLI로 수집한 로그를 첨부해주세요 (토큰, IP 주소, MAC 주소 등 개인정보 제외)
+      placeholder: |
+        ```bash
+        smartthings edge:drivers:logcat
+        # Xiaomi miIO/MIoT 드라이버 선택 후 문제 재현하고 로그 복사
+        ```
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 추가 정보
+      description: 기타 참고사항이나 스크린샷을 추가해주세요
+      render: markdown
+    validations:
+      required: false

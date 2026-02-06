@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 💬 일반 문의
+    url: https://github.com/lunDreame/EdgeDriver/discussions
+    about: 질문이나 일반적인 문의사항은 Discussions를 이용해주세요.

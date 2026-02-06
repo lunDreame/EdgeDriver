@@ -1,0 +1,87 @@
+name: 📱 장치 지원 요청
+description: 새로운 장치 지원을 요청해주세요
+title: "[Device Support] "
+labels: ["device-support"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        새로운 장치 지원을 요청해주시기 전에 기존 이슈를 확인해주세요.
+
+  - type: dropdown
+    id: driver
+    attributes:
+      label: 드라이버
+      description: 어떤 드라이버에 장치를 추가하고 싶으신가요?
+      options:
+        - Xiaomi MIoT
+    validations:
+      required: true
+
+  - type: input
+    id: device_name
+    attributes:
+      label: 장치 이름
+      description: 요청하는 장치의 이름을 입력해주세요
+      placeholder: "예: 샤오미 공기청정기 4 Pro"
+    validations:
+      required: true
+
+  - type: input
+    id: device_model
+    attributes:
+      label: 장치 모델명
+      description: "MIoT 모델명 (예: zhimi.airpurifier.vb4) 및 https://home.miot-spec.com/ 링크"
+      placeholder: "예: zhimi.airpurifier.vb4 또는 https://home.miot-spec.com/spec/zhimi.airpurifier.vb4"
+    validations:
+      required: true
+
+  - type: textarea
+    id: device_info
+    attributes:
+      label: 장치 정보
+      description: 장치에 대한 추가 정보를 입력해주세요
+      value: |
+        - 제조사:
+        - 제품명:
+        - 주요 기능:
+        - 지원하는 프로토콜/통신 방식:
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: capabilities
+    attributes:
+      label: 필요한 Capabilities
+      description: 이 장치가 필요로 하는 SmartThings Capabilities를 나열해주세요 (알고 있는 경우)
+      placeholder: |
+        - switch
+        - fanSpeed
+        - airQuality
+        등
+      render: markdown
+    validations:
+      required: false
+
+  - type: textarea
+    id: availability
+    attributes:
+      label: 장치 가용성
+      description: 이 장치를 테스트하거나 제공할 수 있나요?
+      value: |
+        - 장치를 보유하고 있나요?: (예/아니오)
+        - 테스트에 참여할 수 있나요?: (예/아니오)
+        - 필요한 추가 정보나 문서를 제공할 수 있나요?: (예/아니오)
+      render: markdown
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 추가 정보
+      description: 기타 참고사항, 링크, 또는 문서를 추가해주세요
+      render: markdown
+    validations:
+      required: false
