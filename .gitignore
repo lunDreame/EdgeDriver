@@ -42,5 +42,7 @@ luac.out
 /docs/
 /scripts/
 /welo/
-/xiaomi-miot/
+/xiaomi-miot/*
+!/xiaomi-miot/README.md
+!/xiaomi-miot/SUPPORTED_DEVICES.md
 .DS_Store
