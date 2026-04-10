@@ -41,8 +41,9 @@ luac.out
 
 /docs/
 /scripts/
-/axon/
+/wallpad/*
 /xiaomi-miot/*
+!/wallpad/README.md
 !/xiaomi-miot/README.md
 !/xiaomi-miot/SUPPORTED_DEVICES.md
 .DS_Store
