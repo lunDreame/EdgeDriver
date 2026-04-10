@@ -150,6 +150,7 @@
 `zhimi.fan.za4`
 `zhimi.fan.za5`
 `zhimi.airpurifier.mb3`
+`zhimi.airpurifier.mb4`
 `zhimi.airpurifier.ma4`
 `xiaomi.airp.cpa4`
 `yeelink.bhf_light.v1`
@@ -252,6 +253,7 @@
 `roborock.vacuum.a40`
 `roborock.vacuum.a46`
 `roborock.vacuum.s5`
+`roborock.vacuum.s5e`
 `roborock.vacuum.s6`
 `roborock.vacuum.t6`
 `roborock.vacuum.m1s`
@@ -285,7 +287,11 @@
 `xiaomi.vacuum.c107`
 `xiaomi.vacuum.c108`
 `xiaomi.vacuum.d102gl`
+`xiaomi.vacuum.d103cn`
 `xiaomi.vacuum.d109gl`
+`xiaomi.vacuum.d110cn`
+`xiaomi.vacuum.d110ch`
+`rockrobo.vacuum.v1`
 `roidmi.vacuum.v60`
 `roidmi.vacuum.v62`
 `roidmi.vacuum.v66`

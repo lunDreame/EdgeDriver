@@ -41,7 +41,7 @@ luac.out
 
 /docs/
 /scripts/
-/welo/
+/axon/
 /xiaomi-miot/*
 !/xiaomi-miot/README.md
 !/xiaomi-miot/SUPPORTED_DEVICES.md
