@@ -14,5 +14,7 @@
     "Lua.diagnostics.globals": [
         "vim"
     ],
-    "Lua.workspace.checkThirdParty": false
+    "Lua.workspace.checkThirdParty": false,
+    "search.useIgnoreFiles": false,
+    "search.useGlobalIgnoreFiles": false
 }
