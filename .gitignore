@@ -46,4 +46,5 @@ luac.out
 !/wallpad/README.md
 !/xiaomi-miot/README.md
 !/xiaomi-miot/SUPPORTED_DEVICES.md
+!/xiaomi-miot/SUPPORTED_DEVICES_V2.md
 .DS_Store
